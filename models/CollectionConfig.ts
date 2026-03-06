@@ -45,13 +45,13 @@ export interface CollectionConfig {
      * @type {boolean}
      * @memberof CollectionConfig
      */
-    storeContent?: boolean;
+    store_content?: boolean;
     /**
      * List of metadata fields to index for filtering and sorting
      * @type {Array<MetadataIndex>}
      * @memberof CollectionConfig
      */
-    metadataIndexes?: Array<MetadataIndex>;
+    metadata_indexes?: Array<MetadataIndex>;
 }
 
 /**
@@ -73,8 +73,8 @@ export function CollectionConfigFromJSONTyped(json: any, ignoreDiscriminator: bo
     return {
         
         'vectors': ((json['vectors'] as Array<any>).map(VectorConfigFromJSON)),
-        'storeContent': json['store_content'] == null ? undefined : json['store_content'],
-        'metadataIndexes': json['metadata_indexes'] == null ? undefined : ((json['metadata_indexes'] as Array<any>).map(MetadataIndexFromJSON)),
+        'store_content': json['store_content'] == null ? undefined : json['store_content'],
+        'metadata_indexes': json['metadata_indexes'] == null ? undefined : ((json['metadata_indexes'] as Array<any>).map(MetadataIndexFromJSON)),
     };
 }
 
@@ -90,8 +90,8 @@ export function CollectionConfigToJSONTyped(value?: CollectionConfig | null, ign
     return {
         
         'vectors': ((value['vectors'] as Array<any>).map(VectorConfigToJSON)),
-        'store_content': value['storeContent'],
-        'metadata_indexes': value['metadataIndexes'] == null ? undefined : ((value['metadataIndexes'] as Array<any>).map(MetadataIndexToJSON)),
+        'store_content': value['store_content'],
+        'metadata_indexes': value['metadata_indexes'] == null ? undefined : ((value['metadata_indexes'] as Array<any>).map(MetadataIndexToJSON)),
     };
 }
 

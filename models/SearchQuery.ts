@@ -54,13 +54,13 @@ export interface SearchQuery {
      * @type {Array<VectorSearchWeight>}
      * @memberof SearchQuery
      */
-    vectorWeights?: Array<VectorSearchWeight>;
+    vector_weights?: Array<VectorSearchWeight>;
     /**
      * Pre-generated custom vectors for this search query (optional)
      * @type {Array<CustomVector>}
      * @memberof SearchQuery
      */
-    customVectors?: Array<CustomVector>;
+    custom_vectors?: Array<CustomVector>;
     /**
      * Maximum number of results to return (1 to 100)
      * @type {number}
@@ -72,31 +72,31 @@ export interface SearchQuery {
      * @type {number}
      * @memberof SearchQuery
      */
-    scoreThreshold?: number;
+    score_threshold?: number;
     /**
      * Optional filter to include only documents with specific tags (max 50 tags, each max 100 characters; cannot contain pipe characters)
      * @type {Array<string>}
      * @memberof SearchQuery
      */
-    documentTags?: Array<string>;
+    document_tags?: Array<string>;
     /**
      * If True, documents must have ALL specified tags (AND). If False, documents must have ANY of the specified tags (OR).
      * @type {boolean}
      * @memberof SearchQuery
      */
-    documentTagsMatchAll?: boolean;
+    document_tags_match_all?: boolean;
     /**
      * Optional recursive metadata filter. Only fields declared in collection metadata_indexes can be filtered.
      * @type {MetadataFilter}
      * @memberof SearchQuery
      */
-    metadataFilter?: MetadataFilter;
+    metadata_filter?: MetadataFilter;
     /**
      * Whether to include individual vector scores in results
      * @type {boolean}
      * @memberof SearchQuery
      */
-    rawScores?: boolean;
+    raw_scores?: boolean;
 }
 
 /**
@@ -118,14 +118,14 @@ export function SearchQueryFromJSONTyped(json: any, ignoreDiscriminator: boolean
     return {
         
         'query': json['query'],
-        'vectorWeights': json['vector_weights'] == null ? undefined : ((json['vector_weights'] as Array<any>).map(VectorSearchWeightFromJSON)),
-        'customVectors': json['custom_vectors'] == null ? undefined : ((json['custom_vectors'] as Array<any>).map(CustomVectorFromJSON)),
+        'vector_weights': json['vector_weights'] == null ? undefined : ((json['vector_weights'] as Array<any>).map(VectorSearchWeightFromJSON)),
+        'custom_vectors': json['custom_vectors'] == null ? undefined : ((json['custom_vectors'] as Array<any>).map(CustomVectorFromJSON)),
         'limit': json['limit'] == null ? undefined : json['limit'],
-        'scoreThreshold': json['score_threshold'] == null ? undefined : json['score_threshold'],
-        'documentTags': json['document_tags'] == null ? undefined : json['document_tags'],
-        'documentTagsMatchAll': json['document_tags_match_all'] == null ? undefined : json['document_tags_match_all'],
-        'metadataFilter': json['metadata_filter'] == null ? undefined : MetadataFilterFromJSON(json['metadata_filter']),
-        'rawScores': json['raw_scores'] == null ? undefined : json['raw_scores'],
+        'score_threshold': json['score_threshold'] == null ? undefined : json['score_threshold'],
+        'document_tags': json['document_tags'] == null ? undefined : json['document_tags'],
+        'document_tags_match_all': json['document_tags_match_all'] == null ? undefined : json['document_tags_match_all'],
+        'metadata_filter': json['metadata_filter'] == null ? undefined : MetadataFilterFromJSON(json['metadata_filter']),
+        'raw_scores': json['raw_scores'] == null ? undefined : json['raw_scores'],
     };
 }
 
@@ -141,14 +141,14 @@ export function SearchQueryToJSONTyped(value?: SearchQuery | null, ignoreDiscrim
     return {
         
         'query': value['query'],
-        'vector_weights': value['vectorWeights'] == null ? undefined : ((value['vectorWeights'] as Array<any>).map(VectorSearchWeightToJSON)),
-        'custom_vectors': value['customVectors'] == null ? undefined : ((value['customVectors'] as Array<any>).map(CustomVectorToJSON)),
+        'vector_weights': value['vector_weights'] == null ? undefined : ((value['vector_weights'] as Array<any>).map(VectorSearchWeightToJSON)),
+        'custom_vectors': value['custom_vectors'] == null ? undefined : ((value['custom_vectors'] as Array<any>).map(CustomVectorToJSON)),
         'limit': value['limit'],
-        'score_threshold': value['scoreThreshold'],
-        'document_tags': value['documentTags'],
-        'document_tags_match_all': value['documentTagsMatchAll'],
-        'metadata_filter': MetadataFilterToJSON(value['metadataFilter']),
-        'raw_scores': value['rawScores'],
+        'score_threshold': value['score_threshold'],
+        'document_tags': value['document_tags'],
+        'document_tags_match_all': value['document_tags_match_all'],
+        'metadata_filter': MetadataFilterToJSON(value['metadata_filter']),
+        'raw_scores': value['raw_scores'],
     };
 }
 

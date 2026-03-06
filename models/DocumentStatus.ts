@@ -42,13 +42,13 @@ export interface DocumentStatus {
      * @type {string}
      * @memberof DocumentStatus
      */
-    queueId?: string;
+    queue_id?: string;
     /**
      * Number of processing attempts (only for failed statuses)
      * @type {number}
      * @memberof DocumentStatus
      */
-    tryCount?: number;
+    try_count?: number;
 }
 
 
@@ -86,8 +86,8 @@ export function DocumentStatusFromJSONTyped(json: any, ignoreDiscriminator: bool
         'status': json['status'],
         'info': json['info'] == null ? undefined : json['info'],
         'timestamp': (new Date(json['timestamp'])),
-        'queueId': json['queue_id'] == null ? undefined : json['queue_id'],
-        'tryCount': json['try_count'] == null ? undefined : json['try_count'],
+        'queue_id': json['queue_id'] == null ? undefined : json['queue_id'],
+        'try_count': json['try_count'] == null ? undefined : json['try_count'],
     };
 }
 
@@ -105,8 +105,8 @@ export function DocumentStatusToJSONTyped(value?: DocumentStatus | null, ignoreD
         'status': value['status'],
         'info': value['info'],
         'timestamp': ((value['timestamp']).toISOString()),
-        'queue_id': value['queueId'],
-        'try_count': value['tryCount'],
+        'queue_id': value['queue_id'],
+        'try_count': value['try_count'],
     };
 }
 

@@ -32,7 +32,7 @@ export interface CustomVector {
      * @type {string}
      * @memberof CustomVector
      */
-    vectorName: string;
+    vector_name: string;
     /**
      * 
      * @type {Vector}
@@ -45,7 +45,7 @@ export interface CustomVector {
  * Check if a given object implements the CustomVector interface.
  */
 export function instanceOfCustomVector(value: object): value is CustomVector {
-    if (!('vectorName' in value) || value['vectorName'] === undefined) return false;
+    if (!('vector_name' in value) || value['vector_name'] === undefined) return false;
     if (!('vector' in value) || value['vector'] === undefined) return false;
     return true;
 }
@@ -60,7 +60,7 @@ export function CustomVectorFromJSONTyped(json: any, ignoreDiscriminator: boolea
     }
     return {
         
-        'vectorName': json['vector_name'],
+        'vector_name': json['vector_name'],
         'vector': VectorFromJSON(json['vector']),
     };
 }
@@ -76,7 +76,7 @@ export function CustomVectorToJSONTyped(value?: CustomVector | null, ignoreDiscr
 
     return {
         
-        'vector_name': value['vectorName'],
+        'vector_name': value['vector_name'],
         'vector': VectorToJSON(value['vector']),
     };
 }

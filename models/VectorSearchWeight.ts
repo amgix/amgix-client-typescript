@@ -26,7 +26,7 @@ export interface VectorSearchWeight {
      * @type {string}
      * @memberof VectorSearchWeight
      */
-    vectorName: string;
+    vector_name: string;
     /**
      * Weight to apply to this vector's search results
      * @type {number}
@@ -57,7 +57,7 @@ export type VectorSearchWeightFieldEnum = typeof VectorSearchWeightFieldEnum[key
  * Check if a given object implements the VectorSearchWeight interface.
  */
 export function instanceOfVectorSearchWeight(value: object): value is VectorSearchWeight {
-    if (!('vectorName' in value) || value['vectorName'] === undefined) return false;
+    if (!('vector_name' in value) || value['vector_name'] === undefined) return false;
     if (!('field' in value) || value['field'] === undefined) return false;
     return true;
 }
@@ -73,7 +73,7 @@ export function VectorSearchWeightFromJSONTyped(json: any, ignoreDiscriminator: 
     return {
         
             ...json,
-        'vectorName': json['vector_name'],
+        'vector_name': json['vector_name'],
         'weight': json['weight'] == null ? undefined : json['weight'],
         'field': json['field'],
     };
@@ -91,7 +91,7 @@ export function VectorSearchWeightToJSONTyped(value?: VectorSearchWeight | null,
     return {
         
             ...value,
-        'vector_name': value['vectorName'],
+        'vector_name': value['vector_name'],
         'weight': value['weight'],
         'field': value['field'],
     };

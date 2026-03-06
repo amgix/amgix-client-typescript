@@ -79,7 +79,7 @@ export interface SearchResult {
      * @type {Array<CustomDocumentVector>}
      * @memberof SearchResult
      */
-    customVectors?: Array<CustomDocumentVector>;
+    custom_vectors?: Array<CustomDocumentVector>;
     /**
      * The relevance score for this document
      * @type {number}
@@ -91,7 +91,7 @@ export interface SearchResult {
      * @type {Array<VectorScore>}
      * @memberof SearchResult
      */
-    vectorScores?: Array<VectorScore>;
+    vector_scores?: Array<VectorScore>;
 }
 
 /**
@@ -121,9 +121,9 @@ export function SearchResultFromJSONTyped(json: any, ignoreDiscriminator: boolea
         'name': json['name'] == null ? undefined : json['name'],
         'description': json['description'] == null ? undefined : json['description'],
         'metadata': json['metadata'] == null ? undefined : json['metadata'],
-        'customVectors': json['custom_vectors'] == null ? undefined : ((json['custom_vectors'] as Array<any>).map(CustomDocumentVectorFromJSON)),
+        'custom_vectors': json['custom_vectors'] == null ? undefined : ((json['custom_vectors'] as Array<any>).map(CustomDocumentVectorFromJSON)),
         'score': json['score'],
-        'vectorScores': json['vector_scores'] == null ? undefined : ((json['vector_scores'] as Array<any>).map(VectorScoreFromJSON)),
+        'vector_scores': json['vector_scores'] == null ? undefined : ((json['vector_scores'] as Array<any>).map(VectorScoreFromJSON)),
     };
 }
 
@@ -145,9 +145,9 @@ export function SearchResultToJSONTyped(value?: SearchResult | null, ignoreDiscr
         'name': value['name'],
         'description': value['description'],
         'metadata': value['metadata'],
-        'custom_vectors': value['customVectors'] == null ? undefined : ((value['customVectors'] as Array<any>).map(CustomDocumentVectorToJSON)),
+        'custom_vectors': value['custom_vectors'] == null ? undefined : ((value['custom_vectors'] as Array<any>).map(CustomDocumentVectorToJSON)),
         'score': value['score'],
-        'vector_scores': value['vectorScores'] == null ? undefined : ((value['vectorScores'] as Array<any>).map(VectorScoreToJSON)),
+        'vector_scores': value['vector_scores'] == null ? undefined : ((value['vector_scores'] as Array<any>).map(VectorScoreToJSON)),
     };
 }
 

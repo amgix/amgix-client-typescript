@@ -52,13 +52,13 @@ export interface VectorConfig {
      * @type {string}
      * @memberof VectorConfig
      */
-    queryModel?: string;
+    query_model?: string;
     /**
      * Optional model revision for query vectorization (max 210 characters). If not specified, uses 'revision' for both documents and queries.
      * @type {string}
      * @memberof VectorConfig
      */
-    queryRevision?: string;
+    query_revision?: string;
     /**
      * Dimensions for the vector. Required for dense_custom vectors. For dense_model vectors, auto-detected if not specified.
      * @type {number}
@@ -70,31 +70,31 @@ export interface VectorConfig {
      * @type {number}
      * @memberof VectorConfig
      */
-    topK?: number;
+    top_k?: number;
     /**
      * List of fields to index with this vector (name, description, content). Defaults to ['content'] if not specified.
      * @type {Array<string>}
      * @memberof VectorConfig
      */
-    indexFields?: Array<VectorConfigIndexFieldsEnum>;
+    index_fields?: Array<VectorConfigIndexFieldsEnum>;
     /**
      * Two-letter ISO 639-1 language code for language-based vector types (e.g., 'en', 'es', 'fr')
      * @type {string}
      * @memberof VectorConfig
      */
-    languageDefaultCode?: string;
+    language_default_code?: string;
     /**
      * Whether to automatically detect language for language-based vector types
      * @type {boolean}
      * @memberof VectorConfig
      */
-    languageDetect?: boolean;
+    language_detect?: boolean;
     /**
      * Minimum confidence threshold for language detection. If detection confidence is below this value, language_default_code will be used instead.
      * @type {number}
      * @memberof VectorConfig
      */
-    languageConfidence?: number;
+    language_confidence?: number;
     /**
      * Whether to normalize vectors. Only supported for dense vectors. Sparse vectors do not support normalization.
      * @type {boolean}
@@ -106,13 +106,13 @@ export interface VectorConfig {
      * @type {string}
      * @memberof VectorConfig
      */
-    denseDistance?: VectorConfigDenseDistanceEnum;
+    dense_distance?: VectorConfigDenseDistanceEnum;
     /**
      * Whether to keep original case for text preprocessing. Only applies to model-based vectors (dense_model, sparse_model). Defaults to False (lowercase).
      * @type {boolean}
      * @memberof VectorConfig
      */
-    keepCase?: boolean;
+    keep_case?: boolean;
 }
 
 
@@ -177,17 +177,17 @@ export function VectorConfigFromJSONTyped(json: any, ignoreDiscriminator: boolea
         'type': json['type'],
         'model': json['model'] == null ? undefined : json['model'],
         'revision': json['revision'] == null ? undefined : json['revision'],
-        'queryModel': json['query_model'] == null ? undefined : json['query_model'],
-        'queryRevision': json['query_revision'] == null ? undefined : json['query_revision'],
+        'query_model': json['query_model'] == null ? undefined : json['query_model'],
+        'query_revision': json['query_revision'] == null ? undefined : json['query_revision'],
         'dimensions': json['dimensions'] == null ? undefined : json['dimensions'],
-        'topK': json['top_k'] == null ? undefined : json['top_k'],
-        'indexFields': json['index_fields'] == null ? undefined : json['index_fields'],
-        'languageDefaultCode': json['language_default_code'] == null ? undefined : json['language_default_code'],
-        'languageDetect': json['language_detect'] == null ? undefined : json['language_detect'],
-        'languageConfidence': json['language_confidence'] == null ? undefined : json['language_confidence'],
+        'top_k': json['top_k'] == null ? undefined : json['top_k'],
+        'index_fields': json['index_fields'] == null ? undefined : json['index_fields'],
+        'language_default_code': json['language_default_code'] == null ? undefined : json['language_default_code'],
+        'language_detect': json['language_detect'] == null ? undefined : json['language_detect'],
+        'language_confidence': json['language_confidence'] == null ? undefined : json['language_confidence'],
         'normalization': json['normalization'] == null ? undefined : json['normalization'],
-        'denseDistance': json['dense_distance'] == null ? undefined : json['dense_distance'],
-        'keepCase': json['keep_case'] == null ? undefined : json['keep_case'],
+        'dense_distance': json['dense_distance'] == null ? undefined : json['dense_distance'],
+        'keep_case': json['keep_case'] == null ? undefined : json['keep_case'],
     };
 }
 
@@ -207,17 +207,17 @@ export function VectorConfigToJSONTyped(value?: VectorConfig | null, ignoreDiscr
         'type': value['type'],
         'model': value['model'],
         'revision': value['revision'],
-        'query_model': value['queryModel'],
-        'query_revision': value['queryRevision'],
+        'query_model': value['query_model'],
+        'query_revision': value['query_revision'],
         'dimensions': value['dimensions'],
-        'top_k': value['topK'],
-        'index_fields': value['indexFields'],
-        'language_default_code': value['languageDefaultCode'],
-        'language_detect': value['languageDetect'],
-        'language_confidence': value['languageConfidence'],
+        'top_k': value['top_k'],
+        'index_fields': value['index_fields'],
+        'language_default_code': value['language_default_code'],
+        'language_detect': value['language_detect'],
+        'language_confidence': value['language_confidence'],
         'normalization': value['normalization'],
-        'dense_distance': value['denseDistance'],
-        'keep_case': value['keepCase'],
+        'dense_distance': value['dense_distance'],
+        'keep_case': value['keep_case'],
     };
 }
 

@@ -78,7 +78,7 @@ export interface Document {
      * @type {Array<CustomDocumentVector>}
      * @memberof Document
      */
-    customVectors?: Array<CustomDocumentVector>;
+    custom_vectors?: Array<CustomDocumentVector>;
 }
 
 /**
@@ -108,7 +108,7 @@ export function DocumentFromJSONTyped(json: any, ignoreDiscriminator: boolean): 
         'description': json['description'] == null ? undefined : json['description'],
         'content': json['content'] == null ? undefined : json['content'],
         'metadata': json['metadata'] == null ? undefined : json['metadata'],
-        'customVectors': json['custom_vectors'] == null ? undefined : ((json['custom_vectors'] as Array<any>).map(CustomDocumentVectorFromJSON)),
+        'custom_vectors': json['custom_vectors'] == null ? undefined : ((json['custom_vectors'] as Array<any>).map(CustomDocumentVectorFromJSON)),
     };
 }
 
@@ -131,7 +131,7 @@ export function DocumentToJSONTyped(value?: Document | null, ignoreDiscriminator
         'description': value['description'],
         'content': value['content'],
         'metadata': value['metadata'],
-        'custom_vectors': value['customVectors'] == null ? undefined : ((value['customVectors'] as Array<any>).map(CustomDocumentVectorToJSON)),
+        'custom_vectors': value['custom_vectors'] == null ? undefined : ((value['custom_vectors'] as Array<any>).map(CustomDocumentVectorToJSON)),
     };
 }
 

@@ -32,7 +32,7 @@ export interface CustomDocumentVector {
      * @type {string}
      * @memberof CustomDocumentVector
      */
-    vectorName: string;
+    vector_name: string;
     /**
      * 
      * @type {Vector}
@@ -63,7 +63,7 @@ export type CustomDocumentVectorFieldEnum = typeof CustomDocumentVectorFieldEnum
  * Check if a given object implements the CustomDocumentVector interface.
  */
 export function instanceOfCustomDocumentVector(value: object): value is CustomDocumentVector {
-    if (!('vectorName' in value) || value['vectorName'] === undefined) return false;
+    if (!('vector_name' in value) || value['vector_name'] === undefined) return false;
     if (!('vector' in value) || value['vector'] === undefined) return false;
     if (!('field' in value) || value['field'] === undefined) return false;
     return true;
@@ -79,7 +79,7 @@ export function CustomDocumentVectorFromJSONTyped(json: any, ignoreDiscriminator
     }
     return {
         
-        'vectorName': json['vector_name'],
+        'vector_name': json['vector_name'],
         'vector': VectorFromJSON(json['vector']),
         'field': json['field'],
     };
@@ -96,7 +96,7 @@ export function CustomDocumentVectorToJSONTyped(value?: CustomDocumentVector | n
 
     return {
         
-        'vector_name': value['vectorName'],
+        'vector_name': value['vector_name'],
         'vector': VectorToJSON(value['vector']),
         'field': value['field'],
     };

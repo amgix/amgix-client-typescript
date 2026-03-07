@@ -3,4 +3,4 @@ dist/
 *.log
 .env
 .env.*
-test-local.js
+tests-local/*

@@ -1,0 +1,1 @@
+Client for the Amalgam Index (Amgix) API

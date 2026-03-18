@@ -2,6 +2,7 @@
 /* eslint-disable */
 export * from './BulkUploadRequest';
 export * from './CollectionConfig';
+export * from './CollectionExistsResponse';
 export * from './CustomDocumentVector';
 export * from './CustomVector';
 export * from './Document';
@@ -12,6 +13,7 @@ export * from './MetadataFilter';
 export * from './MetadataIndex';
 export * from './OkResponse';
 export * from './QueueInfo';
+export * from './ReadyResponse';
 export * from './SearchQuery';
 export * from './SearchResult';
 export * from './ValidationError';

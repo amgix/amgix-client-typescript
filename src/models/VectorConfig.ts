@@ -22,7 +22,6 @@ import { mapValues } from '../runtime';
  * @interface VectorConfig
  */
 export interface VectorConfig {
-    [key: string]: any | any;
     /**
      * Unique name for this vector configuration
      * @type {string}
@@ -31,40 +30,40 @@ export interface VectorConfig {
     name: string;
     /**
      * Type of vector (dense_model, sparse_model, full_text, trigrams, whitespace, wmtr, dense_custom, sparse_custom)
-     * @type {string}
+     * @type {VectorConfigTypeEnum}
      * @memberof VectorConfig
      */
     type: VectorConfigTypeEnum;
     /**
-     * Model name for transformer-based vectors (max 210 characters, e.g., 'sentence-transformers/all-MiniLM-L6-v2'). Used for document indexing.
+     * 
      * @type {string}
      * @memberof VectorConfig
      */
-    model?: string;
+    model?: string | null;
     /**
-     * Optional model revision (max 210 characters, branch/tag/commit) for specific model version. Used for document indexing.
+     * 
      * @type {string}
      * @memberof VectorConfig
      */
-    revision?: string;
+    revision?: string | null;
     /**
-     * Optional model name for query vectorization (max 210 characters). If not specified, uses 'model' for both documents and queries.
+     * 
      * @type {string}
      * @memberof VectorConfig
      */
-    query_model?: string;
+    query_model?: string | null;
     /**
-     * Optional model revision for query vectorization (max 210 characters). If not specified, uses 'revision' for both documents and queries.
+     * 
      * @type {string}
      * @memberof VectorConfig
      */
-    query_revision?: string;
+    query_revision?: string | null;
     /**
-     * Dimensions for the vector. Required for dense_custom vectors. For dense_model vectors, auto-detected if not specified.
+     * 
      * @type {number}
      * @memberof VectorConfig
      */
-    dimensions?: number;
+    dimensions?: number | null;
     /**
      * Number of top-scoring terms to keep for sparse vectors. Used by sparse_model, full_text, trigrams, whitespace, wmtr, and sparse_custom vectors. Ignored by dense vectors.
      * @type {number}
@@ -79,16 +78,16 @@ export interface VectorConfig {
     wmtr_word_weight?: number;
     /**
      * List of fields to index with this vector (name, description, content). Defaults to ['content'] if not specified.
-     * @type {Array<string>}
+     * @type {Array<VectorConfigIndexFieldsEnum>}
      * @memberof VectorConfig
      */
     index_fields?: Array<VectorConfigIndexFieldsEnum>;
     /**
-     * Two-letter ISO 639-1 language code for language-based vector types (e.g., 'en', 'es', 'fr')
+     * 
      * @type {string}
      * @memberof VectorConfig
      */
-    language_default_code?: string;
+    language_default_code?: string | null;
     /**
      * Whether to automatically detect language for language-based vector types
      * @type {boolean}
@@ -102,23 +101,23 @@ export interface VectorConfig {
      */
     language_confidence?: number;
     /**
-     * Whether to normalize vectors. Only supported for dense vectors. Sparse vectors do not support normalization.
+     * 
      * @type {boolean}
      * @memberof VectorConfig
      */
-    normalization?: boolean;
+    normalization?: boolean | null;
     /**
      * Distance metric for dense vectors (cosine, dot, euclid). Defaults to cosine.
-     * @type {string}
+     * @type {VectorConfigDenseDistanceEnum}
      * @memberof VectorConfig
      */
     dense_distance?: VectorConfigDenseDistanceEnum;
     /**
-     * Whether to keep original case for text preprocessing. Only applies to model-based vectors (dense_model, sparse_model). Defaults to False (lowercase).
+     * 
      * @type {boolean}
      * @memberof VectorConfig
      */
-    keep_case?: boolean;
+    keep_case?: boolean | null;
 }
 
 
@@ -178,7 +177,6 @@ export function VectorConfigFromJSONTyped(json: any, ignoreDiscriminator: boolea
     }
     return {
         
-            ...json,
         'name': json['name'],
         'type': json['type'],
         'model': json['model'] == null ? undefined : json['model'],
@@ -209,7 +207,6 @@ export function VectorConfigToJSONTyped(value?: VectorConfig | null, ignoreDiscr
 
     return {
         
-            ...value,
         'name': value['name'],
         'type': value['type'],
         'model': value['model'],

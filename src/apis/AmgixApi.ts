@@ -125,10 +125,9 @@ export interface UpsertDocumentsBulkRequest {
 export class AmgixApi extends runtime.BaseAPI {
 
     /**
-     * Check if a collection exists. Always returns 200 with exists true or false.
-     * Collection Exists
+     * Creates request options for collectionExists without sending the request
      */
-    async collectionExistsRaw(requestParameters: CollectionExistsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CollectionExistsResponse>> {
+    async collectionExistsRequestOpts(requestParameters: CollectionExistsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters['collectionName'] == null) {
             throw new runtime.RequiredError(
                 'collectionName',
@@ -144,12 +143,21 @@ export class AmgixApi extends runtime.BaseAPI {
         let urlPath = `/v1/collections/{collection_name}/exists`;
         urlPath = urlPath.replace(`{${"collection_name"}}`, encodeURIComponent(String(requestParameters['collectionName'])));
 
-        const response = await this.request({
+        return {
             path: urlPath,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        };
+    }
+
+    /**
+     * Check if a collection exists. Always returns 200 with exists true or false.
+     * Collection Exists
+     */
+    async collectionExistsRaw(requestParameters: CollectionExistsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CollectionExistsResponse>> {
+        const requestOptions = await this.collectionExistsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CollectionExistsResponseFromJSON(jsonValue));
     }
@@ -164,10 +172,9 @@ export class AmgixApi extends runtime.BaseAPI {
     }
 
     /**
-     * Create a new collection.  This endpoint creates a new collection with the specified name and vector configurations. It validates the provided model configurations and ensures all required features are supported by the database.  Args:     collection_name: The unique name for the new collection (alphanumeric, underscores, hyphens only).     config: Configuration details for the collection, including vector types and storage options.  Returns:     An `OkResponse` object indicating the success of the operation.  Raises:     HTTPException:         - 400 if model validation fails or required features are not supported.         - 409 if a collection with the same name already exists.         - 500 if the collection creation fails in the database.
-     * Create Collection
+     * Creates request options for createCollection without sending the request
      */
-    async createCollectionRaw(requestParameters: CreateCollectionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<OkResponse>> {
+    async createCollectionRequestOpts(requestParameters: CreateCollectionRequest): Promise<runtime.RequestOpts> {
         if (requestParameters['collectionName'] == null) {
             throw new runtime.RequiredError(
                 'collectionName',
@@ -192,13 +199,22 @@ export class AmgixApi extends runtime.BaseAPI {
         let urlPath = `/v1/collections/{collection_name}`;
         urlPath = urlPath.replace(`{${"collection_name"}}`, encodeURIComponent(String(requestParameters['collectionName'])));
 
-        const response = await this.request({
+        return {
             path: urlPath,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
             body: CollectionConfigToJSON(requestParameters['collectionConfig']),
-        }, initOverrides);
+        };
+    }
+
+    /**
+     * Create a new collection.  This endpoint creates a new collection with the specified name and vector configurations. It validates the provided model configurations and ensures all required features are supported by the database.  Args:     collection_name: The unique name for the new collection (alphanumeric, underscores, hyphens only).     config: Configuration details for the collection, including vector types and storage options.  Returns:     An `OkResponse` object indicating the success of the operation.  Raises:     HTTPException:         - 400 if model validation fails or required features are not supported.         - 409 if a collection with the same name already exists.         - 500 if the collection creation fails in the database.
+     * Create Collection
+     */
+    async createCollectionRaw(requestParameters: CreateCollectionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<OkResponse>> {
+        const requestOptions = await this.createCollectionRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => OkResponseFromJSON(jsonValue));
     }
@@ -213,10 +229,9 @@ export class AmgixApi extends runtime.BaseAPI {
     }
 
     /**
-     * Delete a collection.  Deletes a collection and all its associated data. This operation is irreversible.  Args:     collection_name: The name of the collection to delete.  Returns:     An `OkResponse` object indicating the success of the operation.
-     * Delete Collection
+     * Creates request options for deleteCollection without sending the request
      */
-    async deleteCollectionRaw(requestParameters: DeleteCollectionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<OkResponse>> {
+    async deleteCollectionRequestOpts(requestParameters: DeleteCollectionRequest): Promise<runtime.RequestOpts> {
         if (requestParameters['collectionName'] == null) {
             throw new runtime.RequiredError(
                 'collectionName',
@@ -232,12 +247,21 @@ export class AmgixApi extends runtime.BaseAPI {
         let urlPath = `/v1/collections/{collection_name}`;
         urlPath = urlPath.replace(`{${"collection_name"}}`, encodeURIComponent(String(requestParameters['collectionName'])));
 
-        const response = await this.request({
+        return {
             path: urlPath,
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        };
+    }
+
+    /**
+     * Delete a collection.  Deletes a collection and all its associated data. This operation is irreversible.  Args:     collection_name: The name of the collection to delete.  Returns:     An `OkResponse` object indicating the success of the operation.
+     * Delete Collection
+     */
+    async deleteCollectionRaw(requestParameters: DeleteCollectionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<OkResponse>> {
+        const requestOptions = await this.deleteCollectionRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => OkResponseFromJSON(jsonValue));
     }
@@ -252,10 +276,9 @@ export class AmgixApi extends runtime.BaseAPI {
     }
 
     /**
-     * Delete all queue entries for a collection.  Removes all documents from the processing queue for a specified collection. This does not affect documents already indexed in the collection.  Args:     collection_name: The name of the collection for which to delete queue entries.  Returns:     An `OkResponse` object indicating the success of the operation.
-     * Delete Collection Queue
+     * Creates request options for deleteCollectionQueue without sending the request
      */
-    async deleteCollectionQueueRaw(requestParameters: DeleteCollectionQueueRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<OkResponse>> {
+    async deleteCollectionQueueRequestOpts(requestParameters: DeleteCollectionQueueRequest): Promise<runtime.RequestOpts> {
         if (requestParameters['collectionName'] == null) {
             throw new runtime.RequiredError(
                 'collectionName',
@@ -271,12 +294,21 @@ export class AmgixApi extends runtime.BaseAPI {
         let urlPath = `/v1/collections/{collection_name}/queue`;
         urlPath = urlPath.replace(`{${"collection_name"}}`, encodeURIComponent(String(requestParameters['collectionName'])));
 
-        const response = await this.request({
+        return {
             path: urlPath,
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        };
+    }
+
+    /**
+     * Delete all queue entries for a collection.  Removes all documents from the processing queue for a specified collection. This does not affect documents already indexed in the collection.  Args:     collection_name: The name of the collection for which to delete queue entries.  Returns:     An `OkResponse` object indicating the success of the operation.
+     * Delete Collection Queue
+     */
+    async deleteCollectionQueueRaw(requestParameters: DeleteCollectionQueueRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<OkResponse>> {
+        const requestOptions = await this.deleteCollectionQueueRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => OkResponseFromJSON(jsonValue));
     }
@@ -291,10 +323,9 @@ export class AmgixApi extends runtime.BaseAPI {
     }
 
     /**
-     * Delete a document.  Deletes a specific document by its ID from the specified collection.  Args:     collection_name: The name of the collection.     document_id: The unique identifier of the document to delete.  Returns:     An `OkResponse` object indicating the success of the operation.
-     * Delete Document
+     * Creates request options for deleteDocument without sending the request
      */
-    async deleteDocumentRaw(requestParameters: DeleteDocumentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<OkResponse>> {
+    async deleteDocumentRequestOpts(requestParameters: DeleteDocumentRequest): Promise<runtime.RequestOpts> {
         if (requestParameters['collectionName'] == null) {
             throw new runtime.RequiredError(
                 'collectionName',
@@ -318,12 +349,21 @@ export class AmgixApi extends runtime.BaseAPI {
         urlPath = urlPath.replace(`{${"collection_name"}}`, encodeURIComponent(String(requestParameters['collectionName'])));
         urlPath = urlPath.replace(`{${"document_id"}}`, encodeURIComponent(String(requestParameters['documentId'])));
 
-        const response = await this.request({
+        return {
             path: urlPath,
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        };
+    }
+
+    /**
+     * Delete a document.  Deletes a specific document by its ID from the specified collection.  Args:     collection_name: The name of the collection.     document_id: The unique identifier of the document to delete.  Returns:     An `OkResponse` object indicating the success of the operation.
+     * Delete Document
+     */
+    async deleteDocumentRaw(requestParameters: DeleteDocumentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<OkResponse>> {
+        const requestOptions = await this.deleteDocumentRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => OkResponseFromJSON(jsonValue));
     }
@@ -338,10 +378,9 @@ export class AmgixApi extends runtime.BaseAPI {
     }
 
     /**
-     * Empty a collection.  Removes all documents and their associated vector data from a specified collection, but keeps the collection\'s configuration.  Args:     collection_name: The name of the collection to empty.  Returns:     An `OkResponse` object indicating the success of the operation.
-     * Empty Collection
+     * Creates request options for emptyCollection without sending the request
      */
-    async emptyCollectionRaw(requestParameters: EmptyCollectionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<OkResponse>> {
+    async emptyCollectionRequestOpts(requestParameters: EmptyCollectionRequest): Promise<runtime.RequestOpts> {
         if (requestParameters['collectionName'] == null) {
             throw new runtime.RequiredError(
                 'collectionName',
@@ -357,12 +396,21 @@ export class AmgixApi extends runtime.BaseAPI {
         let urlPath = `/v1/collections/{collection_name}/empty`;
         urlPath = urlPath.replace(`{${"collection_name"}}`, encodeURIComponent(String(requestParameters['collectionName'])));
 
-        const response = await this.request({
+        return {
             path: urlPath,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        };
+    }
+
+    /**
+     * Empty a collection.  Removes all documents and their associated vector data from a specified collection, but keeps the collection\'s configuration.  Args:     collection_name: The name of the collection to empty.  Returns:     An `OkResponse` object indicating the success of the operation.
+     * Empty Collection
+     */
+    async emptyCollectionRaw(requestParameters: EmptyCollectionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<OkResponse>> {
+        const requestOptions = await this.emptyCollectionRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => OkResponseFromJSON(jsonValue));
     }
@@ -377,10 +425,9 @@ export class AmgixApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get collection configuration.  Retrieves the configuration details for a specific collection.  Args:     collection_name: The name of the collection.  Returns:     The configuration of the specified collection.
-     * Get Collection Config
+     * Creates request options for getCollectionConfig without sending the request
      */
-    async getCollectionConfigRaw(requestParameters: GetCollectionConfigRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CollectionConfig>> {
+    async getCollectionConfigRequestOpts(requestParameters: GetCollectionConfigRequest): Promise<runtime.RequestOpts> {
         if (requestParameters['collectionName'] == null) {
             throw new runtime.RequiredError(
                 'collectionName',
@@ -396,12 +443,21 @@ export class AmgixApi extends runtime.BaseAPI {
         let urlPath = `/v1/collections/{collection_name}`;
         urlPath = urlPath.replace(`{${"collection_name"}}`, encodeURIComponent(String(requestParameters['collectionName'])));
 
-        const response = await this.request({
+        return {
             path: urlPath,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        };
+    }
+
+    /**
+     * Get collection configuration.  Retrieves the configuration details for a specific collection.  Args:     collection_name: The name of the collection.  Returns:     The configuration of the specified collection.
+     * Get Collection Config
+     */
+    async getCollectionConfigRaw(requestParameters: GetCollectionConfigRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CollectionConfig>> {
+        const requestOptions = await this.getCollectionConfigRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CollectionConfigFromJSON(jsonValue));
     }
@@ -416,10 +472,9 @@ export class AmgixApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get queue statistics for a collection.  Retrieves counts of documents in different queue states (queued, requeued, failed).  Args:     collection_name: The name of the collection.  Returns:     A `QueueInfo` object with counts for each queue state.
-     * Get Collection Queue Info
+     * Creates request options for getCollectionQueueInfo without sending the request
      */
-    async getCollectionQueueInfoRaw(requestParameters: GetCollectionQueueInfoRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<QueueInfo>> {
+    async getCollectionQueueInfoRequestOpts(requestParameters: GetCollectionQueueInfoRequest): Promise<runtime.RequestOpts> {
         if (requestParameters['collectionName'] == null) {
             throw new runtime.RequiredError(
                 'collectionName',
@@ -435,12 +490,21 @@ export class AmgixApi extends runtime.BaseAPI {
         let urlPath = `/v1/collections/{collection_name}/queue/info`;
         urlPath = urlPath.replace(`{${"collection_name"}}`, encodeURIComponent(String(requestParameters['collectionName'])));
 
-        const response = await this.request({
+        return {
             path: urlPath,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        };
+    }
+
+    /**
+     * Get queue statistics for a collection.  Retrieves counts of documents in different queue states (queued, requeued, failed).  Args:     collection_name: The name of the collection.  Returns:     A `QueueInfo` object with counts for each queue state.
+     * Get Collection Queue Info
+     */
+    async getCollectionQueueInfoRaw(requestParameters: GetCollectionQueueInfoRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<QueueInfo>> {
+        const requestOptions = await this.getCollectionQueueInfoRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => QueueInfoFromJSON(jsonValue));
     }
@@ -455,10 +519,9 @@ export class AmgixApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieve a single document.  Retrieves a specific document by its ID from the specified collection.  Args:     collection_name: The name of the collection.     document_id: The unique identifier of the document to retrieve.  Returns:     The retrieved `Document` object.  Raises:     HTTPException: 404 if the document is not found in the collection.
-     * Get Document
+     * Creates request options for getDocument without sending the request
      */
-    async getDocumentRaw(requestParameters: GetDocumentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Document>> {
+    async getDocumentRequestOpts(requestParameters: GetDocumentRequest): Promise<runtime.RequestOpts> {
         if (requestParameters['collectionName'] == null) {
             throw new runtime.RequiredError(
                 'collectionName',
@@ -482,12 +545,21 @@ export class AmgixApi extends runtime.BaseAPI {
         urlPath = urlPath.replace(`{${"collection_name"}}`, encodeURIComponent(String(requestParameters['collectionName'])));
         urlPath = urlPath.replace(`{${"document_id"}}`, encodeURIComponent(String(requestParameters['documentId'])));
 
-        const response = await this.request({
+        return {
             path: urlPath,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        };
+    }
+
+    /**
+     * Retrieve a single document.  Retrieves a specific document by its ID from the specified collection.  Args:     collection_name: The name of the collection.     document_id: The unique identifier of the document to retrieve.  Returns:     The retrieved `Document` object.  Raises:     HTTPException: 404 if the document is not found in the collection.
+     * Get Document
+     */
+    async getDocumentRaw(requestParameters: GetDocumentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Document>> {
+        const requestOptions = await this.getDocumentRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DocumentFromJSON(jsonValue));
     }
@@ -502,10 +574,9 @@ export class AmgixApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get document processing status.  Retrieves the processing status of a document, including its current state in the queue and any associated messages.  Args:     collection_name: The name of the collection.     document_id: The unique identifier of the document.  Returns:     A `DocumentStatusResponse` object containing the processing status of the document.  Raises:     HTTPException: 404 if the document is not found in the collection\'s queue.
-     * Get Document Status
+     * Creates request options for getDocumentStatus without sending the request
      */
-    async getDocumentStatusRaw(requestParameters: GetDocumentStatusRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DocumentStatusResponse>> {
+    async getDocumentStatusRequestOpts(requestParameters: GetDocumentStatusRequest): Promise<runtime.RequestOpts> {
         if (requestParameters['collectionName'] == null) {
             throw new runtime.RequiredError(
                 'collectionName',
@@ -529,12 +600,21 @@ export class AmgixApi extends runtime.BaseAPI {
         urlPath = urlPath.replace(`{${"collection_name"}}`, encodeURIComponent(String(requestParameters['collectionName'])));
         urlPath = urlPath.replace(`{${"document_id"}}`, encodeURIComponent(String(requestParameters['documentId'])));
 
-        const response = await this.request({
+        return {
             path: urlPath,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        };
+    }
+
+    /**
+     * Get document processing status.  Retrieves the processing status of a document, including its current state in the queue and any associated messages.  Args:     collection_name: The name of the collection.     document_id: The unique identifier of the document.  Returns:     A `DocumentStatusResponse` object containing the processing status of the document.  Raises:     HTTPException: 404 if the document is not found in the collection\'s queue.
+     * Get Document Status
+     */
+    async getDocumentStatusRaw(requestParameters: GetDocumentStatusRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DocumentStatusResponse>> {
+        const requestOptions = await this.getDocumentStatusRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DocumentStatusResponseFromJSON(jsonValue));
     }
@@ -549,10 +629,9 @@ export class AmgixApi extends runtime.BaseAPI {
     }
 
     /**
-     * Check API service responsiveness.  This endpoint returns a simple \'ok\' status to indicate that the API service is running and able to respond to requests.  Returns:     An `OkResponse` object with the \'ok\' field set to True, confirming the service\'s responsiveness.
-     * Health
+     * Creates request options for healthCheck without sending the request
      */
-    async healthCheckRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<OkResponse>> {
+    async healthCheckRequestOpts(): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -560,12 +639,21 @@ export class AmgixApi extends runtime.BaseAPI {
 
         let urlPath = `/v1/health/check`;
 
-        const response = await this.request({
+        return {
             path: urlPath,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        };
+    }
+
+    /**
+     * Check API service responsiveness.  This endpoint returns a simple \'ok\' status to indicate that the API service is running and able to respond to requests.  Returns:     An `OkResponse` object with the \'ok\' field set to True, confirming the service\'s responsiveness.
+     * Health
+     */
+    async healthCheckRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<OkResponse>> {
+        const requestOptions = await this.healthCheckRequestOpts();
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => OkResponseFromJSON(jsonValue));
     }
@@ -580,10 +668,9 @@ export class AmgixApi extends runtime.BaseAPI {
     }
 
     /**
-     * Check if service is ready to handle requests.  Runs four probes: database, rabbitmq, encoder (ping-encoder), rpc (ping-rpc). Returns 200 if all pass (fully ready), 218 if some fail (partial ready). Response body always includes all four probe results and a ready flag.
-     * Readiness Check
+     * Creates request options for healthReady without sending the request
      */
-    async healthReadyRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ReadyResponse>> {
+    async healthReadyRequestOpts(): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -591,12 +678,21 @@ export class AmgixApi extends runtime.BaseAPI {
 
         let urlPath = `/v1/health/ready`;
 
-        const response = await this.request({
+        return {
             path: urlPath,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        };
+    }
+
+    /**
+     * Check if service is ready to handle requests.  Runs four probes: database, rabbitmq, encoder (ping-encoder), rpc (ping-rpc). Returns 200 if all pass (fully ready), 218 if some fail (partial ready). Response body always includes all four probe results and a ready flag.
+     * Readiness Check
+     */
+    async healthReadyRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ReadyResponse>> {
+        const requestOptions = await this.healthReadyRequestOpts();
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ReadyResponseFromJSON(jsonValue));
     }
@@ -611,10 +707,9 @@ export class AmgixApi extends runtime.BaseAPI {
     }
 
     /**
-     * List all available collections.  Retrieves a list of all collections managed by the application.  Returns:     A list of strings, where each string is the name of an available collection.
-     * List Collections
+     * Creates request options for listCollections without sending the request
      */
-    async listCollectionsRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<string>>> {
+    async listCollectionsRequestOpts(): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -622,12 +717,21 @@ export class AmgixApi extends runtime.BaseAPI {
 
         let urlPath = `/v1/collections`;
 
-        const response = await this.request({
+        return {
             path: urlPath,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        };
+    }
+
+    /**
+     * List all available collections.  Retrieves a list of all collections managed by the application.  Returns:     A list of strings, where each string is the name of an available collection.
+     * List Collections
+     */
+    async listCollectionsRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<string>>> {
+        const requestOptions = await this.listCollectionsRequestOpts();
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse<any>(response);
     }
@@ -642,10 +746,9 @@ export class AmgixApi extends runtime.BaseAPI {
     }
 
     /**
-     * Perform a search query on a collection.  Executes a search query against the specified collection.  Args:     collection_name: The name of the collection to search.     query: The `SearchQuery` object containing the search text, filters, and other parameters.  Returns:     A list of `SearchResult` objects, where each object represents a search result.
-     * Search
+     * Creates request options for search without sending the request
      */
-    async searchRaw(requestParameters: SearchRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<SearchResult>>> {
+    async searchRequestOpts(requestParameters: SearchRequest): Promise<runtime.RequestOpts> {
         if (requestParameters['collectionName'] == null) {
             throw new runtime.RequiredError(
                 'collectionName',
@@ -670,13 +773,22 @@ export class AmgixApi extends runtime.BaseAPI {
         let urlPath = `/v1/collections/{collection_name}/search`;
         urlPath = urlPath.replace(`{${"collection_name"}}`, encodeURIComponent(String(requestParameters['collectionName'])));
 
-        const response = await this.request({
+        return {
             path: urlPath,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
             body: SearchQueryToJSON(requestParameters['searchQuery']),
-        }, initOverrides);
+        };
+    }
+
+    /**
+     * Perform a search query on a collection.  Executes a search query against the specified collection.  Args:     collection_name: The name of the collection to search.     query: The `SearchQuery` object containing the search text, filters, and other parameters.  Returns:     A list of `SearchResult` objects, where each object represents a search result.
+     * Search
+     */
+    async searchRaw(requestParameters: SearchRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<SearchResult>>> {
+        const requestOptions = await this.searchRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(SearchResultFromJSON));
     }
@@ -691,10 +803,9 @@ export class AmgixApi extends runtime.BaseAPI {
     }
 
     /**
-     * Upsert a single document asynchronously.  Adds or updates a single document in the specified collection by placing it into a processing queue. The document will be vectorized and indexed asynchronously.  Args:     collection_name: The name of the collection to upsert the document into.     document: The document object to be upserted.  Returns:     An `OkResponse` object indicating that the document has been accepted for processing.  Raises:     HTTPException: 500 if publishing the event to the internal queue fails.
-     * Upsert Document
+     * Creates request options for upsertDocument without sending the request
      */
-    async upsertDocumentRaw(requestParameters: UpsertDocumentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<OkResponse>> {
+    async upsertDocumentRequestOpts(requestParameters: UpsertDocumentRequest): Promise<runtime.RequestOpts> {
         if (requestParameters['collectionName'] == null) {
             throw new runtime.RequiredError(
                 'collectionName',
@@ -719,13 +830,22 @@ export class AmgixApi extends runtime.BaseAPI {
         let urlPath = `/v1/collections/{collection_name}/documents`;
         urlPath = urlPath.replace(`{${"collection_name"}}`, encodeURIComponent(String(requestParameters['collectionName'])));
 
-        const response = await this.request({
+        return {
             path: urlPath,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
             body: DocumentToJSON(requestParameters['document']),
-        }, initOverrides);
+        };
+    }
+
+    /**
+     * Upsert a single document asynchronously.  Adds or updates a single document in the specified collection by placing it into a processing queue. The document will be vectorized and indexed asynchronously.  Args:     collection_name: The name of the collection to upsert the document into.     document: The document object to be upserted.  Returns:     An `OkResponse` object indicating that the document has been accepted for processing.  Raises:     HTTPException: 500 if publishing the event to the internal queue fails.
+     * Upsert Document
+     */
+    async upsertDocumentRaw(requestParameters: UpsertDocumentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<OkResponse>> {
+        const requestOptions = await this.upsertDocumentRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => OkResponseFromJSON(jsonValue));
     }
@@ -740,10 +860,9 @@ export class AmgixApi extends runtime.BaseAPI {
     }
 
     /**
-     * Upsert a single document synchronously.  Adds or updates a single document in the specified collection and waits for the operation to complete, including vectorization and indexing.  Args:     collection_name: The name of the collection to upsert the document into.     document: The document object to be upserted.  Returns:     An `OkResponse` object indicating the success of the operation.  Raises:     HTTPException:         - 409 if a document with the same ID and newer timestamp already exists (conflict).         - 500 for other internal server errors during processing.
-     * Upsert Document Sync
+     * Creates request options for upsertDocumentSync without sending the request
      */
-    async upsertDocumentSyncRaw(requestParameters: UpsertDocumentSyncRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<OkResponse>> {
+    async upsertDocumentSyncRequestOpts(requestParameters: UpsertDocumentSyncRequest): Promise<runtime.RequestOpts> {
         if (requestParameters['collectionName'] == null) {
             throw new runtime.RequiredError(
                 'collectionName',
@@ -768,13 +887,22 @@ export class AmgixApi extends runtime.BaseAPI {
         let urlPath = `/v1/collections/{collection_name}/documents/sync`;
         urlPath = urlPath.replace(`{${"collection_name"}}`, encodeURIComponent(String(requestParameters['collectionName'])));
 
-        const response = await this.request({
+        return {
             path: urlPath,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
             body: DocumentToJSON(requestParameters['document']),
-        }, initOverrides);
+        };
+    }
+
+    /**
+     * Upsert a single document synchronously.  Adds or updates a single document in the specified collection and waits for the operation to complete, including vectorization and indexing.  Args:     collection_name: The name of the collection to upsert the document into.     document: The document object to be upserted.  Returns:     An `OkResponse` object indicating the success of the operation.  Raises:     HTTPException:         - 409 if a document with the same ID and newer timestamp already exists (conflict).         - 500 for other internal server errors during processing.
+     * Upsert Document Sync
+     */
+    async upsertDocumentSyncRaw(requestParameters: UpsertDocumentSyncRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<OkResponse>> {
+        const requestOptions = await this.upsertDocumentSyncRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => OkResponseFromJSON(jsonValue));
     }
@@ -789,10 +917,9 @@ export class AmgixApi extends runtime.BaseAPI {
     }
 
     /**
-     * Upsert multiple documents in bulk asynchronously.  Adds or updates multiple documents in the specified collection by placing them into a processing queue. Documents will be vectorized and indexed asynchronously. This method is optimized for bulk operations.  Args:     collection_name: The name of the collection to upsert the documents into.     request: A `BulkUploadRequest` object containing a list of `Document` objects to be upserted.  Returns:     An `OkResponse` object indicating that the documents have been accepted for processing.  Raises:     HTTPException: 500 if publishing events to the internal queue fails for any document.
-     * Upsert Documents Bulk
+     * Creates request options for upsertDocumentsBulk without sending the request
      */
-    async upsertDocumentsBulkRaw(requestParameters: UpsertDocumentsBulkRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<OkResponse>> {
+    async upsertDocumentsBulkRequestOpts(requestParameters: UpsertDocumentsBulkRequest): Promise<runtime.RequestOpts> {
         if (requestParameters['collectionName'] == null) {
             throw new runtime.RequiredError(
                 'collectionName',
@@ -817,13 +944,22 @@ export class AmgixApi extends runtime.BaseAPI {
         let urlPath = `/v1/collections/{collection_name}/documents/bulk`;
         urlPath = urlPath.replace(`{${"collection_name"}}`, encodeURIComponent(String(requestParameters['collectionName'])));
 
-        const response = await this.request({
+        return {
             path: urlPath,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
             body: BulkUploadRequestToJSON(requestParameters['bulkUploadRequest']),
-        }, initOverrides);
+        };
+    }
+
+    /**
+     * Upsert multiple documents in bulk asynchronously.  Adds or updates multiple documents in the specified collection by placing them into a processing queue. Documents will be vectorized and indexed asynchronously. This method is optimized for bulk operations.  Args:     collection_name: The name of the collection to upsert the documents into.     request: A `BulkUploadRequest` object containing a list of `Document` objects to be upserted.  Returns:     An `OkResponse` object indicating that the documents have been accepted for processing.  Raises:     HTTPException: 500 if publishing events to the internal queue fails for any document.
+     * Upsert Documents Bulk
+     */
+    async upsertDocumentsBulkRaw(requestParameters: UpsertDocumentsBulkRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<OkResponse>> {
+        const requestOptions = await this.upsertDocumentsBulkRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => OkResponseFromJSON(jsonValue));
     }
@@ -838,10 +974,9 @@ export class AmgixApi extends runtime.BaseAPI {
     }
 
     /**
-     * Return the system version.  Returns:     A `VersionResponse` object with the system version.
-     * Version
+     * Creates request options for version without sending the request
      */
-    async versionRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<VersionResponse>> {
+    async versionRequestOpts(): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -849,12 +984,21 @@ export class AmgixApi extends runtime.BaseAPI {
 
         let urlPath = `/v1/version`;
 
-        const response = await this.request({
+        return {
             path: urlPath,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        };
+    }
+
+    /**
+     * Return the system version.  Returns:     A `VersionResponse` object with the system version.
+     * Version
+     */
+    async versionRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<VersionResponse>> {
+        const requestOptions = await this.versionRequestOpts();
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => VersionResponseFromJSON(jsonValue));
     }

@@ -56,11 +56,11 @@ export interface SearchQuery {
      */
     vector_weights?: Array<VectorSearchWeight>;
     /**
-     * Pre-generated custom vectors for this search query (optional)
+     * 
      * @type {Array<CustomVector>}
      * @memberof SearchQuery
      */
-    custom_vectors?: Array<CustomVector>;
+    custom_vectors?: Array<CustomVector> | null;
     /**
      * Maximum number of results to return (1 to 100)
      * @type {number}
@@ -68,17 +68,17 @@ export interface SearchQuery {
      */
     limit?: number;
     /**
-     * Optional minimum score threshold. Results below this score will be excluded
+     * 
      * @type {number}
      * @memberof SearchQuery
      */
-    score_threshold?: number;
+    score_threshold?: number | null;
     /**
-     * Optional filter to include only documents with specific tags (max 50 tags, each max 100 characters; cannot contain pipe characters)
+     * 
      * @type {Array<string>}
      * @memberof SearchQuery
      */
-    document_tags?: Array<string>;
+    document_tags?: Array<string> | null;
     /**
      * If True, documents must have ALL specified tags (AND). If False, documents must have ANY of the specified tags (OR).
      * @type {boolean}
@@ -86,11 +86,11 @@ export interface SearchQuery {
      */
     document_tags_match_all?: boolean;
     /**
-     * Optional recursive metadata filter. Only fields declared in collection metadata_indexes can be filtered.
+     * 
      * @type {MetadataFilter}
      * @memberof SearchQuery
      */
-    metadata_filter?: MetadataFilter;
+    metadata_filter?: MetadataFilter | null;
     /**
      * Whether to include individual vector scores in results
      * @type {boolean}

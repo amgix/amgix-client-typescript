@@ -21,16 +21,16 @@ import { mapValues } from '../runtime';
 export interface DocumentStatus {
     /**
      * Status of the document (queued, requeued, indexed, failed)
-     * @type {string}
+     * @type {DocumentStatusStatusEnum}
      * @memberof DocumentStatus
      */
     status: DocumentStatusStatusEnum;
     /**
-     * Status information
+     * 
      * @type {string}
      * @memberof DocumentStatus
      */
-    info?: string;
+    info?: string | null;
     /**
      * When this status occurred
      * @type {Date}
@@ -38,17 +38,17 @@ export interface DocumentStatus {
      */
     timestamp: Date;
     /**
-     * Queue entry ID (only for queue-related statuses)
+     * 
      * @type {string}
      * @memberof DocumentStatus
      */
-    queue_id?: string;
+    queue_id?: string | null;
     /**
-     * Number of processing attempts (only for failed statuses)
+     * 
      * @type {number}
      * @memberof DocumentStatus
      */
-    try_count?: number;
+    try_count?: number | null;
 }
 
 
@@ -104,7 +104,7 @@ export function DocumentStatusToJSONTyped(value?: DocumentStatus | null, ignoreD
         
         'status': value['status'],
         'info': value['info'],
-        'timestamp': ((value['timestamp']).toISOString()),
+        'timestamp': value['timestamp'].toISOString(),
         'queue_id': value['queue_id'],
         'try_count': value['try_count'],
     };

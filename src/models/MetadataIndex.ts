@@ -27,7 +27,7 @@ export interface MetadataIndex {
     key: string;
     /**
      * Type of the metadata value
-     * @type {string}
+     * @type {MetadataIndexTypeEnum}
      * @memberof MetadataIndex
      */
     type: MetadataIndexTypeEnum;

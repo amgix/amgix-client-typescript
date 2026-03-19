@@ -41,7 +41,7 @@ export interface CustomDocumentVector {
     vector: Vector;
     /**
      * Document field this vector is for (name, description, or content)
-     * @type {string}
+     * @type {CustomDocumentVectorFieldEnum}
      * @memberof CustomDocumentVector
      */
     field: CustomDocumentVectorFieldEnum;

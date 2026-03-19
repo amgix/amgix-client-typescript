@@ -47,11 +47,11 @@ export interface CollectionConfig {
      */
     store_content?: boolean;
     /**
-     * List of metadata fields to index for filtering and sorting
+     * 
      * @type {Array<MetadataIndex>}
      * @memberof CollectionConfig
      */
-    metadata_indexes?: Array<MetadataIndex>;
+    metadata_indexes?: Array<MetadataIndex> | null;
 }
 
 /**

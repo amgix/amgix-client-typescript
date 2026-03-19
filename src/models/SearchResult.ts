@@ -37,7 +37,6 @@ import {
  * @interface SearchResult
  */
 export interface SearchResult {
-    [key: string]: any | any;
     /**
      * Unique identifier for the document (max 100 characters)
      * @type {string}
@@ -51,35 +50,35 @@ export interface SearchResult {
      */
     timestamp: Date;
     /**
-     * List of document tags (max 50 items; each max 100 characters; cannot contain pipe characters)
+     * 
      * @type {Array<string>}
      * @memberof SearchResult
      */
-    tags?: Array<string>;
+    tags?: Array<string> | null;
     /**
-     * Document name (max 1500 characters)
+     * 
      * @type {string}
      * @memberof SearchResult
      */
-    name?: string;
+    name?: string | null;
     /**
-     * Brief description of the document (max 3000 characters)
+     * 
      * @type {string}
      * @memberof SearchResult
      */
-    description?: string;
+    description?: string | null;
     /**
-     * Dictionary of metadata key-value pairs. Values can be simple types (string, int, float, bool) or MetaValue objects (required for datetime)
-     * @type {object}
+     * 
+     * @type {{ [key: string]: any; }}
      * @memberof SearchResult
      */
-    metadata?: object;
+    metadata?: { [key: string]: any; } | null;
     /**
-     * Pre-generated custom vectors for this document (optional)
+     * 
      * @type {Array<CustomDocumentVector>}
      * @memberof SearchResult
      */
-    custom_vectors?: Array<CustomDocumentVector>;
+    custom_vectors?: Array<CustomDocumentVector> | null;
     /**
      * The relevance score for this document
      * @type {number}
@@ -114,7 +113,6 @@ export function SearchResultFromJSONTyped(json: any, ignoreDiscriminator: boolea
     }
     return {
         
-            ...json,
         'id': json['id'],
         'timestamp': (new Date(json['timestamp'])),
         'tags': json['tags'] == null ? undefined : json['tags'],
@@ -138,9 +136,8 @@ export function SearchResultToJSONTyped(value?: SearchResult | null, ignoreDiscr
 
     return {
         
-            ...value,
         'id': value['id'],
-        'timestamp': ((value['timestamp']).toISOString()),
+        'timestamp': value['timestamp'].toISOString(),
         'tags': value['tags'],
         'name': value['name'],
         'description': value['description'],

@@ -20,41 +20,41 @@ import { mapValues } from '../runtime';
  */
 export interface MetadataFilter {
     /**
-     * All conditions in this list must match (AND)
+     * 
      * @type {Array<MetadataFilter>}
      * @memberof MetadataFilter
      */
-    and?: Array<MetadataFilter>;
+    and?: Array<MetadataFilter> | null;
     /**
-     * Any condition in this list must match (OR)
+     * 
      * @type {Array<MetadataFilter>}
      * @memberof MetadataFilter
      */
-    or?: Array<MetadataFilter>;
+    or?: Array<MetadataFilter> | null;
     /**
-     * This condition must NOT match (NOT)
+     * 
      * @type {MetadataFilter}
      * @memberof MetadataFilter
      */
-    not?: MetadataFilter;
-    /**
-     * Metadata field key (for field condition)
-     * @type {string}
-     * @memberof MetadataFilter
-     */
-    key?: string;
-    /**
-     * Comparison operator
-     * @type {string}
-     * @memberof MetadataFilter
-     */
-    op?: MetadataFilterOpEnum;
+    not?: MetadataFilter | null;
     /**
      * 
-     * @type {any}
+     * @type {string}
      * @memberof MetadataFilter
      */
-    value?: any | null;
+    key?: string | null;
+    /**
+     * 
+     * @type {MetadataFilterOpEnum}
+     * @memberof MetadataFilter
+     */
+    op?: MetadataFilterOpEnum | null;
+    /**
+     * Value to compare against (for field condition)
+     * @type {}
+     * @memberof MetadataFilter
+     */
+    value?:  | null;
 }
 
 
@@ -93,7 +93,7 @@ export function MetadataFilterFromJSONTyped(json: any, ignoreDiscriminator: bool
         'not': json['not'] == null ? undefined : MetadataFilterFromJSON(json['not']),
         'key': json['key'] == null ? undefined : json['key'],
         'op': json['op'] == null ? undefined : json['op'],
-        'value': json['value'] == null ? undefined : json['value'],
+        'value': json['value'] == null ? undefined : FromJSON(json['value']),
     };
 }
 
@@ -113,7 +113,7 @@ export function MetadataFilterToJSONTyped(value?: MetadataFilter | null, ignoreD
         'not': MetadataFilterToJSON(value['not']),
         'key': value['key'],
         'op': value['op'],
-        'value': value['value'],
+        'value': ToJSON(value['value']),
     };
 }
 

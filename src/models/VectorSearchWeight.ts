@@ -20,7 +20,6 @@ import { mapValues } from '../runtime';
  * @interface VectorSearchWeight
  */
 export interface VectorSearchWeight {
-    [key: string]: any | any;
     /**
      * Name of the vector to search with
      * @type {string}
@@ -35,7 +34,7 @@ export interface VectorSearchWeight {
     weight?: number;
     /**
      * Field to search with this vector (name, description, content)
-     * @type {string}
+     * @type {VectorSearchWeightFieldEnum}
      * @memberof VectorSearchWeight
      */
     field: VectorSearchWeightFieldEnum;
@@ -72,7 +71,6 @@ export function VectorSearchWeightFromJSONTyped(json: any, ignoreDiscriminator: 
     }
     return {
         
-            ...json,
         'vector_name': json['vector_name'],
         'weight': json['weight'] == null ? undefined : json['weight'],
         'field': json['field'],
@@ -90,7 +88,6 @@ export function VectorSearchWeightToJSONTyped(value?: VectorSearchWeight | null,
 
     return {
         
-            ...value,
         'vector_name': value['vector_name'],
         'weight': value['weight'],
         'field': value['field'],

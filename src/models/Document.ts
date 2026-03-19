@@ -30,7 +30,6 @@ import {
  * @interface Document
  */
 export interface Document {
-    [key: string]: any | any;
     /**
      * Unique identifier for the document (max 100 characters)
      * @type {string}
@@ -44,41 +43,41 @@ export interface Document {
      */
     timestamp: Date;
     /**
-     * List of document tags (max 50 items; each max 100 characters; cannot contain pipe characters)
+     * 
      * @type {Array<string>}
      * @memberof Document
      */
-    tags?: Array<string>;
+    tags?: Array<string> | null;
     /**
-     * Document name (max 1500 characters)
+     * 
      * @type {string}
      * @memberof Document
      */
-    name?: string;
+    name?: string | null;
     /**
-     * Brief description of the document (max 3000 characters)
+     * 
      * @type {string}
      * @memberof Document
      */
-    description?: string;
+    description?: string | null;
     /**
-     * Main content of the document (max 1000000 characters)
+     * 
      * @type {string}
      * @memberof Document
      */
-    content?: string;
+    content?: string | null;
     /**
-     * Dictionary of metadata key-value pairs. Values can be simple types (string, int, float, bool) or MetaValue objects (required for datetime)
-     * @type {object}
+     * 
+     * @type {{ [key: string]: any; }}
      * @memberof Document
      */
-    metadata?: object;
+    metadata?: { [key: string]: any; } | null;
     /**
-     * Pre-generated custom vectors for this document (optional)
+     * 
      * @type {Array<CustomDocumentVector>}
      * @memberof Document
      */
-    custom_vectors?: Array<CustomDocumentVector>;
+    custom_vectors?: Array<CustomDocumentVector> | null;
 }
 
 /**
@@ -100,7 +99,6 @@ export function DocumentFromJSONTyped(json: any, ignoreDiscriminator: boolean): 
     }
     return {
         
-            ...json,
         'id': json['id'],
         'timestamp': (new Date(json['timestamp'])),
         'tags': json['tags'] == null ? undefined : json['tags'],
@@ -123,9 +121,8 @@ export function DocumentToJSONTyped(value?: Document | null, ignoreDiscriminator
 
     return {
         
-            ...value,
         'id': value['id'],
-        'timestamp': ((value['timestamp']).toISOString()),
+        'timestamp': value['timestamp'].toISOString(),
         'tags': value['tags'],
         'name': value['name'],
         'description': value['description'],

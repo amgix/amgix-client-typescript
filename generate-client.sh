@@ -24,7 +24,7 @@ fi
 
 CONTAINER_NAME="amgix-one-gen-$$"
 cleanup() {
-  docker rm -f "$CONTAINER_NAME" 2>/dev/null || true
+  docker rm -f "$CONTAINER_NAME" >/dev/null 2>&1 || true
 }
 trap cleanup EXIT
 
@@ -32,29 +32,37 @@ echo "Starting amgixio/amgix-one:${VERSION}-noembed ..."
 docker run -d --name "$CONTAINER_NAME" -p 8234:8234 "amgixio/amgix-one:${VERSION}-noembed"
 
 echo "Waiting for API (up to 120s) ..."
-timeout 120 bash -c 'until curl -sSf http://localhost:8234/v1/health/check >/dev/null; do echo "  ..."; sleep 5; done'
+sleep 3
+timeout 120 bash -c '
+  while true; do
+    CODE=$(curl -sS -o /tmp/amgix-ready.json -w "%{http_code}" http://localhost:8234/v1/health/ready 2>/dev/null) || CODE=000
+    if [ "$CODE" = "200" ]; then break; fi
+    echo "  ... (HTTP ${CODE})"
+    sleep 5
+  done
+'
 echo "API ready"
-
-echo "Fetching OpenAPI spec ..."
-curl -sSL -o openapi.json http://localhost:8234/openapi.json
-
-cleanup
-trap - EXIT
-
-[[ -f openapi-downgrade.py ]] || { echo "error: openapi-downgrade.py not found in repo root" >&2; exit 1; }
-echo "Downgrading spec ..."
-python3 openapi-downgrade.py -o openapi-down.json -f json openapi.json
 
 PACKAGE_VERSION="${VERSION#v}"
 echo "Setting client.yaml packageVersion to ${PACKAGE_VERSION} ..."
 sed -i.bak "s/^  packageVersion: .*/  packageVersion: ${PACKAGE_VERSION}/" client.yaml
 rm -f client.yaml.bak
 
+echo "Setting src/package.json version to ${PACKAGE_VERSION} ..."
+sed -i.bak "s|^  \"version\": \".*\"|  \"version\": \"${PACKAGE_VERSION}\"|" "${ROOT}/src/package.json"
+rm -f "${ROOT}/src/package.json.bak"
+
 echo "Generating TypeScript client ..."
+# Generator runs in a container; localhost there is not the host. host.docker.internal
+# reaches the host (amgix-one on 8234). Linux needs explicit host mapping.
 docker run --rm \
+  --add-host=host.docker.internal:host-gateway \
   -v "$ROOT":/local \
   -w /local \
   openapitools/openapi-generator-cli:latest \
   generate -c client.yaml --skip-validate-spec
 
-echo "Done. Review changes in client.yaml, under src/, and commit if correct."
+cleanup
+trap - EXIT
+
+echo "Done. Review changes in client.yaml, src/package.json, under src/, and commit if correct."

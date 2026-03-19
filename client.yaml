@@ -1,6 +1,10 @@
 generatorName: typescript-fetch
-inputSpec: openapi-down.json
+# Fetched from host while OpenAPI Generator runs in Docker (see generate-client.sh)
+inputSpec: http://host.docker.internal:8234/openapi.json
 outputDir: ./src
+
+inlineSchemaNameMapping:
+  Location_inner: ValidationErrorLocItem
 
 additionalProperties:
   # Emit snake_case property names so ToJSON sends only snake_case (no extra camelCase keys)
@@ -8,7 +12,7 @@ additionalProperties:
   # Package info
   packageName: amgix_client
   projectName: amgix-client
-  packageVersion: 1.0.0-beta1
+  packageVersion: 1.0.0-beta3.2
   packageUrl: https://github.com/amgix/amgix-client-typescript
   basePath: "http://localhost:8234"
   host: "localhost:8234"

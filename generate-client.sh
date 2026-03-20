@@ -5,21 +5,42 @@ ROOT="$(cd "$(dirname "$0")" && pwd)"
 cd "$ROOT"
 
 usage() {
-  echo "Usage: $0 <version>" >&2
-  echo "  version: Docker image tag without -noembed (e.g. v1.0.0 or v1.0.0-beta2.45)" >&2
+  echo "Usage: $0 <server-version> [package-version]" >&2
+  echo "  server-version: Docker image tag without -noembed (e.g. v1.0.0 or v1.0.0-beta2.45)" >&2
+  echo "  package-version: optional; client.yaml + package.json version (default: same as server without leading v)" >&2
   exit 1
 }
 
-[[ $# -eq 1 ]] || usage
+if [[ $# -lt 1 ]] || [[ $# -gt 2 ]]; then
+  usage
+fi
+
 VERSION="$1"
+PACKAGE_VERSION_INPUT="${2:-}"
 
 if [[ -z "${VERSION// }" ]]; then
-  echo "error: version is empty" >&2
+  echo "error: server-version is empty" >&2
   exit 1
 fi
 if [[ ! "$VERSION" =~ ^v[0-9]+(\.[0-9]+)*(-[a-zA-Z0-9][a-zA-Z0-9.]*)?$ ]]; then
-  echo "error: invalid version format (got: $VERSION). Use v plus semver, e.g. v1.0.0 or v1.0.0-beta2.45" >&2
+  echo "error: invalid server-version (got: $VERSION). Use v plus semver, e.g. v1.0.0 or v1.0.0-beta2.45" >&2
   exit 1
+fi
+
+if [[ -n "$PACKAGE_VERSION_INPUT" ]]; then
+  PV="$PACKAGE_VERSION_INPUT"
+  PV="${PV#v}"
+  if [[ -z "${PV// }" ]]; then
+    echo "error: package-version is empty" >&2
+    exit 1
+  fi
+  if [[ ! "$PV" =~ ^[0-9]+(\.[0-9]+)*(-[a-zA-Z0-9][a-zA-Z0-9.]*)?$ ]]; then
+    echo "error: invalid package-version (got: $PACKAGE_VERSION_INPUT)" >&2
+    exit 1
+  fi
+  PACKAGE_VERSION="$PV"
+else
+  PACKAGE_VERSION="${VERSION#v}"
 fi
 
 CONTAINER_NAME="amgix-one-gen-$$"
@@ -43,7 +64,8 @@ timeout 120 bash -c '
 '
 echo "API ready"
 
-PACKAGE_VERSION="${VERSION#v}"
+echo "Server image: amgixio/amgix-one:${VERSION}-noembed"
+echo "Package version: ${PACKAGE_VERSION}"
 echo "Setting client.yaml packageVersion to ${PACKAGE_VERSION} ..."
 sed -i.bak "s/^  packageVersion: .*/  packageVersion: ${PACKAGE_VERSION}/" client.yaml
 rm -f client.yaml.bak

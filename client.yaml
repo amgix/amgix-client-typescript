@@ -3,7 +3,7 @@ generatorName: typescript-fetch
 inputSpec: http://host.docker.internal:8234/openapi.json
 outputDir: ./src
 
-inlineSchemaNameMapping:
+inlineSchemaNameMappings:
   Location_inner: ValidationErrorLocItem
 
 additionalProperties:

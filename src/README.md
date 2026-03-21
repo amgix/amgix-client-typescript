@@ -1,5 +1,5 @@
-Client for the Amalgam Index (Amgix) API
+TypeScript Client for the Amalgam Index (Amgix) API
 
 See [Amgix server](https://github.com/amgix/amgix-server)
 
-More info is coming soon...
+Read [Documentation](https://docs.amgix.io/client-typescript/AmgixApi/)

@@ -1,26 +1,20 @@
 
-# ValidationError
+# ValidationErrorLocItem
 
 
 ## Properties
 
 Name | Type
 ------------ | -------------
-`loc` | [Array&lt;ValidationErrorLocItem&gt;](ValidationErrorLocItem.md)
-`msg` | string
-`type` | string
 
 ## Example
 
 ```typescript
-import type { ValidationError } from ''
+import type { ValidationErrorLocItem } from ''
 
 // TODO: Update the object below with actual values
 const example = {
-  "loc": null,
-  "msg": null,
-  "type": null,
-} satisfies ValidationError
+} satisfies ValidationErrorLocItem
 
 console.log(example)
 
@@ -29,7 +23,7 @@ const exampleJSON: string = JSON.stringify(example)
 console.log(exampleJSON)
 
 // Parse the JSON string back to an object
-const exampleParsed = JSON.parse(exampleJSON) as ValidationError
+const exampleParsed = JSON.parse(exampleJSON) as ValidationErrorLocItem
 console.log(exampleParsed)
 ```
 

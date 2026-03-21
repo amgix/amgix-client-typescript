@@ -50,35 +50,35 @@ export interface SearchResult {
      */
     timestamp: Date;
     /**
-     * 
+     * List of document tags (max 50 items; each max 100 characters; cannot contain pipe characters)
      * @type {Array<string>}
      * @memberof SearchResult
      */
-    tags?: Array<string> | null;
+    tags?: Array<string>;
     /**
-     * 
+     * Document name (max 1500 characters)
      * @type {string}
      * @memberof SearchResult
      */
-    name?: string | null;
+    name?: string;
     /**
-     * 
+     * Brief description of the document (max 3000 characters)
      * @type {string}
      * @memberof SearchResult
      */
-    description?: string | null;
+    description?: string;
     /**
-     * 
+     * Dictionary of metadata key-value pairs. Values can be simple types (string, int, float, bool) or MetaValue objects (required for datetime)
      * @type {{ [key: string]: any; }}
      * @memberof SearchResult
      */
-    metadata?: { [key: string]: any; } | null;
+    metadata?: { [key: string]: any; };
     /**
-     * 
+     * Pre-generated custom vectors for this document (optional)
      * @type {Array<CustomDocumentVector>}
      * @memberof SearchResult
      */
-    custom_vectors?: Array<CustomDocumentVector> | null;
+    custom_vectors?: Array<CustomDocumentVector>;
     /**
      * The relevance score for this document
      * @type {number}

@@ -43,9 +43,13 @@ else
   PACKAGE_VERSION="${VERSION#v}"
 fi
 
+OPENAPI_31_TMP="$(mktemp "${TMPDIR:-/tmp}/amgix-openapi-31.XXXXXX.json")"
+OPENAPI_30_LOCAL="${ROOT}/openapi-30.local.json"
+
 CONTAINER_NAME="amgix-one-gen-$$"
 cleanup() {
   docker rm -f "$CONTAINER_NAME" >/dev/null 2>&1 || true
+  rm -f "${OPENAPI_31_TMP:-}" "${OPENAPI_30_LOCAL:-}"
 }
 trap cleanup EXIT
 
@@ -64,6 +68,18 @@ timeout 120 bash -c '
 '
 echo "API ready"
 
+echo "Fetching OpenAPI spec ..."
+curl -fsS -o "$OPENAPI_31_TMP" http://localhost:8234/openapi.json
+
+echo "Downgrading spec (OpenAPI 3.1 → 3.0-compatible) ..."
+python3 "$ROOT/openapi-downgrade.py" "$OPENAPI_31_TMP" -o "$OPENAPI_30_LOCAL" -f json
+rm -f "$OPENAPI_31_TMP"
+OPENAPI_31_TMP=""
+if [[ ! -s "$OPENAPI_30_LOCAL" ]]; then
+  echo "error: downgrade produced empty or missing output" >&2
+  exit 1
+fi
+
 echo "Server image: amgixio/amgix-one:${VERSION}-noembed"
 echo "Package version: ${PACKAGE_VERSION}"
 echo "Setting client.yaml packageVersion to ${PACKAGE_VERSION} ..."
@@ -75,10 +91,7 @@ sed -i.bak "s|^  \"version\": \".*\"|  \"version\": \"${PACKAGE_VERSION}\"|" "${
 rm -f "${ROOT}/src/package.json.bak"
 
 echo "Generating TypeScript client ..."
-# Generator runs in a container; localhost there is not the host. host.docker.internal
-# reaches the host (amgix-one on 8234). Linux needs explicit host mapping.
 docker run --rm \
-  --add-host=host.docker.internal:host-gateway \
   -v "$ROOT":/local \
   -w /local \
   openapitools/openapi-generator-cli:latest \

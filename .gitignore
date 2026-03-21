@@ -1,3 +1,6 @@
+# Ephemeral: generate-client.sh writes this before openapi-generator, then deletes it
+openapi-30.local.json
+
 node_modules/
 dist/
 *.log

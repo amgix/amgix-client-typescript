@@ -20,41 +20,41 @@ import { mapValues } from '../runtime';
  */
 export interface MetadataFilter {
     /**
-     * 
+     * All conditions in this list must match (AND)
      * @type {Array<MetadataFilter>}
      * @memberof MetadataFilter
      */
-    and?: Array<MetadataFilter> | null;
+    and?: Array<MetadataFilter>;
     /**
-     * 
+     * Any condition in this list must match (OR)
      * @type {Array<MetadataFilter>}
      * @memberof MetadataFilter
      */
-    or?: Array<MetadataFilter> | null;
+    or?: Array<MetadataFilter>;
     /**
-     * 
+     * This condition must NOT match (NOT)
      * @type {MetadataFilter}
      * @memberof MetadataFilter
      */
-    not?: MetadataFilter | null;
+    not?: MetadataFilter;
     /**
-     * 
+     * Metadata field key (for field condition)
      * @type {string}
      * @memberof MetadataFilter
      */
-    key?: string | null;
+    key?: string;
     /**
-     * 
+     * Comparison operator
      * @type {MetadataFilterOpEnum}
      * @memberof MetadataFilter
      */
-    op?: MetadataFilterOpEnum | null;
+    op?: MetadataFilterOpEnum;
     /**
-     * Value to compare against (for field condition)
-     * @type {}
+     * 
+     * @type {any}
      * @memberof MetadataFilter
      */
-    value?:  | null;
+    value?: any | null;
 }
 
 
@@ -93,7 +93,7 @@ export function MetadataFilterFromJSONTyped(json: any, ignoreDiscriminator: bool
         'not': json['not'] == null ? undefined : MetadataFilterFromJSON(json['not']),
         'key': json['key'] == null ? undefined : json['key'],
         'op': json['op'] == null ? undefined : json['op'],
-        'value': json['value'] == null ? undefined : FromJSON(json['value']),
+        'value': json['value'] == null ? undefined : json['value'],
     };
 }
 
@@ -113,7 +113,7 @@ export function MetadataFilterToJSONTyped(value?: MetadataFilter | null, ignoreD
         'not': MetadataFilterToJSON(value['not']),
         'key': value['key'],
         'op': value['op'],
-        'value': ToJSON(value['value']),
+        'value': value['value'],
     };
 }
 

@@ -12,7 +12,7 @@ Name | Type
 `not` | [MetadataFilter](MetadataFilter.md)
 `key` | string
 `op` | string
-`value` | [](.md)
+`value` | any
 
 ## Example
 

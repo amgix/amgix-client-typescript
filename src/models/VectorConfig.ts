@@ -35,35 +35,35 @@ export interface VectorConfig {
      */
     type: VectorConfigTypeEnum;
     /**
-     * 
+     * Model name for transformer-based vectors (max 210 characters, e.g., 'sentence-transformers/all-MiniLM-L6-v2'). Used for document indexing.
      * @type {string}
      * @memberof VectorConfig
      */
-    model?: string | null;
+    model?: string;
     /**
-     * 
+     * Optional model revision (max 210 characters, branch/tag/commit) for specific model version. Used for document indexing.
      * @type {string}
      * @memberof VectorConfig
      */
-    revision?: string | null;
+    revision?: string;
     /**
-     * 
+     * Optional model name for query vectorization (max 210 characters). If not specified, uses 'model' for both documents and queries.
      * @type {string}
      * @memberof VectorConfig
      */
-    query_model?: string | null;
+    query_model?: string;
     /**
-     * 
+     * Optional model revision for query vectorization (max 210 characters). If not specified, uses 'revision' for both documents and queries.
      * @type {string}
      * @memberof VectorConfig
      */
-    query_revision?: string | null;
+    query_revision?: string;
     /**
-     * 
+     * Dimensions for the vector. Required for dense_custom vectors. For dense_model vectors, auto-detected if not specified.
      * @type {number}
      * @memberof VectorConfig
      */
-    dimensions?: number | null;
+    dimensions?: number;
     /**
      * Number of top-scoring terms to keep for sparse vectors. Used by sparse_model, full_text, trigrams, whitespace, wmtr, and sparse_custom vectors. Ignored by dense vectors.
      * @type {number}
@@ -83,11 +83,11 @@ export interface VectorConfig {
      */
     index_fields?: Array<VectorConfigIndexFieldsEnum>;
     /**
-     * 
+     * Two-letter ISO 639-1 language code for language-based vector types (e.g., 'en', 'es', 'fr')
      * @type {string}
      * @memberof VectorConfig
      */
-    language_default_code?: string | null;
+    language_default_code?: string;
     /**
      * Whether to automatically detect language for language-based vector types
      * @type {boolean}
@@ -101,11 +101,11 @@ export interface VectorConfig {
      */
     language_confidence?: number;
     /**
-     * 
+     * Whether to normalize vectors. Only supported for dense vectors. Sparse vectors do not support normalization.
      * @type {boolean}
      * @memberof VectorConfig
      */
-    normalization?: boolean | null;
+    normalization?: boolean;
     /**
      * Distance metric for dense vectors (cosine, dot, euclid). Defaults to cosine.
      * @type {VectorConfigDenseDistanceEnum}
@@ -113,11 +113,11 @@ export interface VectorConfig {
      */
     dense_distance?: VectorConfigDenseDistanceEnum;
     /**
-     * 
+     * Whether to keep original case for text preprocessing. Only applies to model-based vectors (dense_model, sparse_model). Defaults to False (lowercase).
      * @type {boolean}
      * @memberof VectorConfig
      */
-    keep_case?: boolean | null;
+    keep_case?: boolean;
 }
 
 

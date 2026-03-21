@@ -43,41 +43,41 @@ export interface Document {
      */
     timestamp: Date;
     /**
-     * 
+     * List of document tags (max 50 items; each max 100 characters; cannot contain pipe characters)
      * @type {Array<string>}
      * @memberof Document
      */
-    tags?: Array<string> | null;
+    tags?: Array<string>;
     /**
-     * 
+     * Document name (max 1500 characters)
      * @type {string}
      * @memberof Document
      */
-    name?: string | null;
+    name?: string;
     /**
-     * 
+     * Brief description of the document (max 3000 characters)
      * @type {string}
      * @memberof Document
      */
-    description?: string | null;
+    description?: string;
     /**
-     * 
+     * Main content of the document (max 1000000 characters)
      * @type {string}
      * @memberof Document
      */
-    content?: string | null;
+    content?: string;
     /**
-     * 
+     * Dictionary of metadata key-value pairs. Values can be simple types (string, int, float, bool) or MetaValue objects (required for datetime)
      * @type {{ [key: string]: any; }}
      * @memberof Document
      */
-    metadata?: { [key: string]: any; } | null;
+    metadata?: { [key: string]: any; };
     /**
-     * 
+     * Pre-generated custom vectors for this document (optional)
      * @type {Array<CustomDocumentVector>}
      * @memberof Document
      */
-    custom_vectors?: Array<CustomDocumentVector> | null;
+    custom_vectors?: Array<CustomDocumentVector>;
 }
 
 /**

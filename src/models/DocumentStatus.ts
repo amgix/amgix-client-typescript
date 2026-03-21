@@ -26,11 +26,11 @@ export interface DocumentStatus {
      */
     status: DocumentStatusStatusEnum;
     /**
-     * 
+     * Status information
      * @type {string}
      * @memberof DocumentStatus
      */
-    info?: string | null;
+    info?: string;
     /**
      * When this status occurred
      * @type {Date}
@@ -38,17 +38,17 @@ export interface DocumentStatus {
      */
     timestamp: Date;
     /**
-     * 
+     * Queue entry ID (only for queue-related statuses)
      * @type {string}
      * @memberof DocumentStatus
      */
-    queue_id?: string | null;
+    queue_id?: string;
     /**
-     * 
+     * Number of processing attempts (only for failed statuses)
      * @type {number}
      * @memberof DocumentStatus
      */
-    try_count?: number | null;
+    try_count?: number;
 }
 
 

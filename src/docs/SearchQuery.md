@@ -16,6 +16,8 @@ Name | Type
 `document_tags_match_all` | boolean
 `metadata_filter` | [MetadataFilter](MetadataFilter.md)
 `raw_scores` | boolean
+`wmtr_trigram_weight` | number
+`fusion_mode` | string
 
 ## Example
 
@@ -33,6 +35,8 @@ const example = {
   "document_tags_match_all": null,
   "metadata_filter": null,
   "raw_scores": null,
+  "wmtr_trigram_weight": null,
+  "fusion_mode": null,
 } satisfies SearchQuery
 
 console.log(example)

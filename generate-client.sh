@@ -5,11 +5,30 @@ ROOT="$(cd "$(dirname "$0")" && pwd)"
 cd "$ROOT"
 
 usage() {
-  echo "Usage: $0 <server-version> [package-version]" >&2
+  echo "Usage: $0 [--dev] <server-version> [package-version]" >&2
+  echo "  --dev             Use API at http://localhost:8234 (no Docker for amgix-one)." >&2
   echo "  server-version: Docker image tag without -noembed (e.g. v1.0.0 or v1.0.0-beta2.45)" >&2
+  echo "                    Ignored for Docker when --dev; still used for default package-version." >&2
   echo "  package-version: optional; client.yaml + package.json version (default: same as server without leading v)" >&2
   exit 1
 }
+
+DEV=0
+POSITIONAL=()
+for arg in "$@"; do
+  case "$arg" in
+    --dev)
+      DEV=1
+      ;;
+    -h | --help)
+      usage
+      ;;
+    *)
+      POSITIONAL+=("$arg")
+      ;;
+  esac
+done
+set -- "${POSITIONAL[@]}"
 
 if [[ $# -lt 1 ]] || [[ $# -gt 2 ]]; then
   usage
@@ -47,14 +66,23 @@ OPENAPI_31_TMP="$(mktemp "${TMPDIR:-/tmp}/amgix-openapi-31.XXXXXX.json")"
 OPENAPI_30_LOCAL="${ROOT}/openapi-30.local.json"
 
 CONTAINER_NAME="amgix-one-gen-$$"
+STARTED_CONTAINER=0
+
 cleanup() {
-  docker rm -f "$CONTAINER_NAME" >/dev/null 2>&1 || true
+  if [[ "$STARTED_CONTAINER" -eq 1 ]]; then
+    docker rm -f "$CONTAINER_NAME" >/dev/null 2>&1 || true
+  fi
   rm -f "${OPENAPI_31_TMP:-}" "${OPENAPI_30_LOCAL:-}"
 }
 trap cleanup EXIT
 
-echo "Starting amgixio/amgix-one:${VERSION}-noembed ..."
-docker run -d --name "$CONTAINER_NAME" -p 8234:8234 "amgixio/amgix-one:${VERSION}-noembed"
+if [[ "$DEV" -eq 1 ]]; then
+  echo "Using existing API at http://localhost:8234 (--dev, no amgix-one container) ..."
+else
+  echo "Starting amgixio/amgix-one:${VERSION}-noembed ..."
+  docker run -d --name "$CONTAINER_NAME" -p 8234:8234 "amgixio/amgix-one:${VERSION}-noembed"
+  STARTED_CONTAINER=1
+fi
 
 echo "Waiting for API (up to 120s) ..."
 sleep 3
@@ -80,7 +108,11 @@ if [[ ! -s "$OPENAPI_30_LOCAL" ]]; then
   exit 1
 fi
 
-echo "Server image: amgixio/amgix-one:${VERSION}-noembed"
+if [[ "$DEV" -eq 1 ]]; then
+  echo "OpenAPI source: http://localhost:8234 (--dev)"
+else
+  echo "Server image: amgixio/amgix-one:${VERSION}-noembed"
+fi
 echo "Package version: ${PACKAGE_VERSION}"
 echo "Setting client.yaml packageVersion to ${PACKAGE_VERSION} ..."
 sed -i.bak "s/^  packageVersion: .*/  packageVersion: ${PACKAGE_VERSION}/" client.yaml

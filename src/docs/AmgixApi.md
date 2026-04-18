@@ -12,12 +12,18 @@ All URIs are relative to *http://localhost:8234*
 | [**emptyCollection**](AmgixApi.md#emptycollection) | **POST** /v1/collections/{collection_name}/empty | Empty Collection |
 | [**getCollectionConfig**](AmgixApi.md#getcollectionconfig) | **GET** /v1/collections/{collection_name} | Get Collection Config |
 | [**getCollectionQueueInfo**](AmgixApi.md#getcollectionqueueinfo) | **GET** /v1/collections/{collection_name}/queue/info | Get Collection Queue Info |
+| [**getCollectionStats**](AmgixApi.md#getcollectionstats) | **GET** /v1/collections/{collection_name}/stats | Get Collection Stats |
 | [**getDocument**](AmgixApi.md#getdocument) | **GET** /v1/collections/{collection_name}/documents/{document_id} | Get Document |
 | [**getDocumentStatus**](AmgixApi.md#getdocumentstatus) | **GET** /v1/collections/{collection_name}/documents/{document_id}/status | Get Document Status |
 | [**healthCheck**](AmgixApi.md#healthcheck) | **GET** /v1/health/check | Health |
 | [**healthReady**](AmgixApi.md#healthready) | **GET** /v1/health/ready | Readiness Check |
 | [**listCollections**](AmgixApi.md#listcollections) | **GET** /v1/collections | List Collections |
+| [**metricsCurrent**](AmgixApi.md#metricscurrent) | **GET** /v1/metrics/current | Metrics Current |
+| [**metricsDefinitions**](AmgixApi.md#metricsdefinitions) | **GET** /v1/metrics/definitions | Metrics Definitions |
+| [**metricsPrometheus**](AmgixApi.md#metricsprometheus) | **GET** /v1/metrics/prometheus | Metrics Prometheus |
+| [**metricsTrends**](AmgixApi.md#metricstrends) | **GET** /v1/metrics/trends | Metrics Trends |
 | [**search**](AmgixApi.md#search) | **POST** /v1/collections/{collection_name}/search | Search |
+| [**systemInfo**](AmgixApi.md#systeminfo) | **GET** /v1/system/info | System Info |
 | [**upsertDocument**](AmgixApi.md#upsertdocument) | **POST** /v1/collections/{collection_name}/documents | Upsert Document |
 | [**upsertDocumentSync**](AmgixApi.md#upsertdocumentsync) | **POST** /v1/collections/{collection_name}/documents/sync | Upsert Document Sync |
 | [**upsertDocumentsBulk**](AmgixApi.md#upsertdocumentsbulk) | **POST** /v1/collections/{collection_name}/documents/bulk | Upsert Documents Bulk |
@@ -575,6 +581,74 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
 
+## getCollectionStats
+
+> CollectionStatsResponse getCollectionStats(collectionName)
+
+Get Collection Stats
+
+Get persisted collection statistics and queue counts.  Returns document counts maintained by the indexing pipeline (not a live physical count), plus queue entry counts by state (same data as &#x60;&#x60;GET .../queue/info&#x60;&#x60;).  Args:     collection_name: The name of the collection.  Returns:     A &#x60;CollectionStatsResponse&#x60; with &#x60;doc_count&#x60; and &#x60;queue&#x60;.  Raises:     HTTPException: 404 if the collection does not exist.
+
+### Example
+
+```ts
+import {
+  Configuration,
+  AmgixApi,
+} from '';
+import type { GetCollectionStatsRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const api = new AmgixApi();
+
+  const body = {
+    // string | Collection name (alphanumeric, underscores, hyphens only)
+    collectionName: collectionName_example,
+  } satisfies GetCollectionStatsRequest;
+
+  try {
+    const data = await api.getCollectionStats(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **collectionName** | `string` | Collection name (alphanumeric, underscores, hyphens only) | [Defaults to `undefined`] |
+
+### Return type
+
+[**CollectionStatsResponse**](CollectionStatsResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful Response |  -  |
+| **422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
 ## getDocument
 
 > Document getDocument(collectionName, documentId)
@@ -782,7 +856,7 @@ No authorization required
 
 Readiness Check
 
-Check if service is ready to handle requests.  Runs four probes: database, rabbitmq, encoder (ping-encoder), rpc (ping-rpc). Returns 200 if all pass (fully ready), 218 if some fail (partial ready). Response body always includes all four probe results and a ready flag.
+Check if service is ready to handle requests.  Runs four probes: database, rabbitmq, index workers, query workers. Returns 200 if all pass (fully ready), 218 if some fail (partial ready). Response body always includes all four probe results and a ready flag.
 
 ### Example
 
@@ -896,6 +970,272 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
 
+## metricsCurrent
+
+> Metrics metricsCurrent(window, keys)
+
+Metrics Current
+
+Return the current metrics state for all nodes over the given window (seconds).
+
+### Example
+
+```ts
+import {
+  Configuration,
+  AmgixApi,
+} from '';
+import type { MetricsCurrentRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const api = new AmgixApi();
+
+  const body = {
+    // number | Aggregation window in seconds - 30 or 60. (optional)
+    window: 56,
+    // Array<string> | Restrict returned metric series to these keys. Omit for all keys. (optional)
+    keys: ...,
+  } satisfies MetricsCurrentRequest;
+
+  try {
+    const data = await api.metricsCurrent(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **window** | `number` | Aggregation window in seconds - 30 or 60. | [Optional] [Defaults to `60`] |
+| **keys** | `Array<string>` | Restrict returned metric series to these keys. Omit for all keys. | [Optional] |
+
+### Return type
+
+[**Metrics**](Metrics.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful Response |  -  |
+| **422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## metricsDefinitions
+
+> Array&lt;MetricDefinitionItem&gt; metricsDefinitions()
+
+Metrics Definitions
+
+Return catalog entries for all known metric keys, their units, and descriptions.
+
+### Example
+
+```ts
+import {
+  Configuration,
+  AmgixApi,
+} from '';
+import type { MetricsDefinitionsRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const api = new AmgixApi();
+
+  try {
+    const data = await api.metricsDefinitions();
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**Array&lt;MetricDefinitionItem&gt;**](MetricDefinitionItem.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful Response |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## metricsPrometheus
+
+> string metricsPrometheus()
+
+Metrics Prometheus
+
+Expose current cluster metrics in Prometheus text exposition (60s rolling window).
+
+### Example
+
+```ts
+import {
+  Configuration,
+  AmgixApi,
+} from '';
+import type { MetricsPrometheusRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const api = new AmgixApi();
+
+  try {
+    const data = await api.metricsPrometheus();
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**string**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `text/plain`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful Response |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## metricsTrends
+
+> Array&lt;MetricTrend&gt; metricsTrends(since, until, resolution, keys)
+
+Metrics Trends
+
+Return historical metric buckets for the given time range and resolution.  Args:     since: Inclusive start of the time range (ISO 8601, UTC assumed if no timezone given).     until: Exclusive end of the time range (ISO 8601, UTC assumed if no timezone given).     resolution: Bucket size in seconds - 60 for 1-minute, 300 for 5-minute.     keys: One or more metric keys to return. Omit to return all keys.
+
+### Example
+
+```ts
+import {
+  Configuration,
+  AmgixApi,
+} from '';
+import type { MetricsTrendsRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const api = new AmgixApi();
+
+  const body = {
+    // Date
+    since: 2013-10-20T19:20:30+01:00,
+    // Date
+    until: 2013-10-20T19:20:30+01:00,
+    // number | Bucket size in seconds - 60 for 1-minute, 300 for 5-minute. (optional)
+    resolution: 56,
+    // Array<string> (optional)
+    keys: ...,
+  } satisfies MetricsTrendsRequest;
+
+  try {
+    const data = await api.metricsTrends(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **since** | `Date` |  | [Defaults to `undefined`] |
+| **until** | `Date` |  | [Defaults to `undefined`] |
+| **resolution** | `number` | Bucket size in seconds - 60 for 1-minute, 300 for 5-minute. | [Optional] [Defaults to `60`] |
+| **keys** | `Array<string>` |  | [Optional] |
+
+### Return type
+
+[**Array&lt;MetricTrend&gt;**](MetricTrend.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful Response |  -  |
+| **422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
 ## search
 
 > Array&lt;SearchResult&gt; search(collectionName, searchQuery)
@@ -963,6 +1303,65 @@ No authorization required
 |-------------|-------------|------------------|
 | **200** | Successful Response |  -  |
 | **422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## systemInfo
+
+> SystemInfoResponse systemInfo()
+
+System Info
+
+Summarize deployment and infrastructure (no connection URLs).
+
+### Example
+
+```ts
+import {
+  Configuration,
+  AmgixApi,
+} from '';
+import type { SystemInfoRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const api = new AmgixApi();
+
+  try {
+    const data = await api.systemInfo();
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**SystemInfoResponse**](SystemInfoResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful Response |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 

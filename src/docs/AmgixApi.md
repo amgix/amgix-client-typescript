@@ -9,6 +9,7 @@ All URIs are relative to *http://localhost:8234*
 | [**deleteCollection**](AmgixApi.md#deletecollection) | **DELETE** /v1/collections/{collection_name} | Delete Collection |
 | [**deleteCollectionQueue**](AmgixApi.md#deletecollectionqueue) | **DELETE** /v1/collections/{collection_name}/queue | Delete Collection Queue |
 | [**deleteDocument**](AmgixApi.md#deletedocument) | **DELETE** /v1/collections/{collection_name}/documents/{document_id} | Delete Document |
+| [**deleteDocumentSync**](AmgixApi.md#deletedocumentsync) | **DELETE** /v1/collections/{collection_name}/documents/{document_id}/sync | Delete Document Sync |
 | [**emptyCollection**](AmgixApi.md#emptycollection) | **POST** /v1/collections/{collection_name}/empty | Empty Collection |
 | [**getCollectionConfig**](AmgixApi.md#getcollectionconfig) | **GET** /v1/collections/{collection_name} | Get Collection Config |
 | [**getCollectionQueueInfo**](AmgixApi.md#getcollectionqueueinfo) | **GET** /v1/collections/{collection_name}/queue/info | Get Collection Queue Info |
@@ -308,11 +309,11 @@ No authorization required
 
 ## deleteDocument
 
-> OkResponse deleteDocument(collectionName, documentId)
+> OkResponse deleteDocument(collectionName, documentId, requestTimestamp)
 
 Delete Document
 
-Delete a document.  Deletes a specific document by its ID from the specified collection.  Args:     collection_name: The name of the collection.     document_id: The unique identifier of the document to delete.  Returns:     An &#x60;OkResponse&#x60; object indicating the success of the operation.
+Delete a document asynchronously.  Queues a document for deletion and returns immediately. The document will be deleted asynchronously.  Args:     collection_name: The name of the collection.     document_id: The unique identifier of the document to delete.  Returns:     An &#x60;OkResponse&#x60; object indicating the success of the operation.
 
 ### Example
 
@@ -332,6 +333,8 @@ async function example() {
     collectionName: collectionName_example,
     // string
     documentId: documentId_example,
+    // Date | Caller-supplied delete timestamp (UTC)
+    requestTimestamp: 2013-10-20T19:20:30+01:00,
   } satisfies DeleteDocumentRequest;
 
   try {
@@ -353,6 +356,81 @@ example().catch(console.error);
 |------------- | ------------- | ------------- | -------------|
 | **collectionName** | `string` | Collection name (alphanumeric, underscores, hyphens only) | [Defaults to `undefined`] |
 | **documentId** | `string` |  | [Defaults to `undefined`] |
+| **requestTimestamp** | `Date` | Caller-supplied delete timestamp (UTC) | [Defaults to `undefined`] |
+
+### Return type
+
+[**OkResponse**](OkResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful Response |  -  |
+| **422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## deleteDocumentSync
+
+> OkResponse deleteDocumentSync(collectionName, documentId, requestTimestamp)
+
+Delete Document Sync
+
+Delete a document synchronously.  Deletes a specific document by its ID from the specified collection and waits for the operation to complete.  Args:     collection_name: The name of the collection.     document_id: The unique identifier of the document to delete.  Returns:     An &#x60;OkResponse&#x60; object indicating the success of the operation.
+
+### Example
+
+```ts
+import {
+  Configuration,
+  AmgixApi,
+} from '';
+import type { DeleteDocumentSyncRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const api = new AmgixApi();
+
+  const body = {
+    // string | Collection name (alphanumeric, underscores, hyphens only)
+    collectionName: collectionName_example,
+    // string
+    documentId: documentId_example,
+    // Date | Caller-supplied delete timestamp (UTC)
+    requestTimestamp: 2013-10-20T19:20:30+01:00,
+  } satisfies DeleteDocumentSyncRequest;
+
+  try {
+    const data = await api.deleteDocumentSync(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **collectionName** | `string` | Collection name (alphanumeric, underscores, hyphens only) | [Defaults to `undefined`] |
+| **documentId** | `string` |  | [Defaults to `undefined`] |
+| **requestTimestamp** | `Date` | Caller-supplied delete timestamp (UTC) | [Defaults to `undefined`] |
 
 ### Return type
 

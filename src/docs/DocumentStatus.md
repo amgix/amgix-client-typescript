@@ -8,6 +8,7 @@ Individual status entry for a document.
 Name | Type
 ------------ | -------------
 `status` | string
+`op_type` | string
 `info` | string
 `timestamp` | Date
 `queue_id` | string
@@ -21,6 +22,7 @@ import type { DocumentStatus } from ''
 // TODO: Update the object below with actual values
 const example = {
   "status": null,
+  "op_type": null,
   "info": null,
   "timestamp": null,
   "queue_id": null,

@@ -7,9 +7,12 @@ Queue statistics for a collection. Provides counts of documents in different que
 
 Name | Type
 ------------ | -------------
-`queued` | number
-`requeued` | number
-`failed` | number
+`queued_upsert` | number
+`queued_delete` | number
+`requeued_upsert` | number
+`requeued_delete` | number
+`failed_upsert` | number
+`failed_delete` | number
 `total` | number
 
 ## Example
@@ -19,9 +22,12 @@ import type { QueueInfo } from ''
 
 // TODO: Update the object below with actual values
 const example = {
-  "queued": null,
-  "requeued": null,
-  "failed": null,
+  "queued_upsert": null,
+  "queued_delete": null,
+  "requeued_upsert": null,
+  "requeued_delete": null,
+  "failed_upsert": null,
+  "failed_delete": null,
   "total": null,
 } satisfies QueueInfo
 

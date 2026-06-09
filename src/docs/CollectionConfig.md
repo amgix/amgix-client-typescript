@@ -1,7 +1,7 @@
 
 # CollectionConfig
 
-API model for collection configuration - uses VectorConfig.
+API model for collection configuration - uses VectorConfig.  If ``vectors`` is omitted or empty a single noop vector is injected automatically, creating a payload-only collection.
 
 ## Properties
 

@@ -12,10 +12,12 @@ Name | Type
 `tags` | Array&lt;string&gt;
 `name` | string
 `description` | string
+`content` | string
 `metadata` | { [key: string]: any; }
 `custom_vectors` | [Array&lt;CustomDocumentVector&gt;](CustomDocumentVector.md)
 `score` | number
 `vector_scores` | [Array&lt;VectorScore&gt;](VectorScore.md)
+`joined` | { [key: string]: Array&lt;Document&gt;; }
 
 ## Example
 
@@ -29,10 +31,12 @@ const example = {
   "tags": null,
   "name": null,
   "description": null,
+  "content": null,
   "metadata": null,
   "custom_vectors": null,
   "score": null,
   "vector_scores": null,
+  "joined": null,
 } satisfies SearchResult
 
 console.log(example)

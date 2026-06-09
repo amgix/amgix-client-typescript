@@ -1,7 +1,7 @@
 
-# MetadataFilter
+# MetadataFilter1
 
-Optional metadata filter. Accepts a MetadataFilter object or a filter expression string.
+Optional metadata filter. Accepts either a MetadataFilter object or a filter expression string (e.g. \'year > 2020 AND status = \"active\"\'). Only fields declared in collection metadata_indexes can be filtered.
 
 ## Properties
 
@@ -17,7 +17,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { MetadataFilter } from ''
+import type { MetadataFilter1 } from ''
 
 // TODO: Update the object below with actual values
 const example = {
@@ -27,7 +27,7 @@ const example = {
   "key": null,
   "op": null,
   "value": null,
-} satisfies MetadataFilter
+} satisfies MetadataFilter1
 
 console.log(example)
 
@@ -36,7 +36,7 @@ const exampleJSON: string = JSON.stringify(example)
 console.log(exampleJSON)
 
 // Parse the JSON string back to an object
-const exampleParsed = JSON.parse(exampleJSON) as MetadataFilter
+const exampleParsed = JSON.parse(exampleJSON) as MetadataFilter1
 console.log(exampleParsed)
 ```
 

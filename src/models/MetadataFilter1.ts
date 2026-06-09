@@ -13,46 +13,54 @@
  */
 
 import { mapValues } from '../runtime';
+import type { MetadataFilter } from './MetadataFilter';
+import {
+    MetadataFilterFromJSON,
+    MetadataFilterFromJSONTyped,
+    MetadataFilterToJSON,
+    MetadataFilterToJSONTyped,
+} from './MetadataFilter';
+
 /**
- * Optional metadata filter. Accepts a MetadataFilter object or a filter expression string.
+ * Optional metadata filter. Accepts either a MetadataFilter object or a filter expression string (e.g. 'year > 2020 AND status = "active"'). Only fields declared in collection metadata_indexes can be filtered.
  * @export
- * @interface MetadataFilter
+ * @interface MetadataFilter1
  */
-export interface MetadataFilter {
+export interface MetadataFilter1 {
     /**
      * All conditions in this list must match (AND)
      * @type {Array<MetadataFilter>}
-     * @memberof MetadataFilter
+     * @memberof MetadataFilter1
      */
     and?: Array<MetadataFilter>;
     /**
      * Any condition in this list must match (OR)
      * @type {Array<MetadataFilter>}
-     * @memberof MetadataFilter
+     * @memberof MetadataFilter1
      */
     or?: Array<MetadataFilter>;
     /**
      * This condition must NOT match (NOT)
      * @type {MetadataFilter}
-     * @memberof MetadataFilter
+     * @memberof MetadataFilter1
      */
     not?: MetadataFilter;
     /**
      * Metadata field key (for field condition)
      * @type {string}
-     * @memberof MetadataFilter
+     * @memberof MetadataFilter1
      */
     key?: string;
     /**
      * Comparison operator
-     * @type {MetadataFilterOpEnum}
-     * @memberof MetadataFilter
+     * @type {MetadataFilter1OpEnum}
+     * @memberof MetadataFilter1
      */
-    op?: MetadataFilterOpEnum;
+    op?: MetadataFilter1OpEnum;
     /**
      * 
      * @type {any}
-     * @memberof MetadataFilter
+     * @memberof MetadataFilter1
      */
     value?: any | null;
 }
@@ -61,7 +69,7 @@ export interface MetadataFilter {
 /**
  * @export
  */
-export const MetadataFilterOpEnum = {
+export const MetadataFilter1OpEnum = {
     Eq: 'eq',
     Neq: 'neq',
     Lt: 'lt',
@@ -69,21 +77,21 @@ export const MetadataFilterOpEnum = {
     Lte: 'lte',
     Gte: 'gte'
 } as const;
-export type MetadataFilterOpEnum = typeof MetadataFilterOpEnum[keyof typeof MetadataFilterOpEnum];
+export type MetadataFilter1OpEnum = typeof MetadataFilter1OpEnum[keyof typeof MetadataFilter1OpEnum];
 
 
 /**
- * Check if a given object implements the MetadataFilter interface.
+ * Check if a given object implements the MetadataFilter1 interface.
  */
-export function instanceOfMetadataFilter(value: object): value is MetadataFilter {
+export function instanceOfMetadataFilter1(value: object): value is MetadataFilter1 {
     return true;
 }
 
-export function MetadataFilterFromJSON(json: any): MetadataFilter {
-    return MetadataFilterFromJSONTyped(json, false);
+export function MetadataFilter1FromJSON(json: any): MetadataFilter1 {
+    return MetadataFilter1FromJSONTyped(json, false);
 }
 
-export function MetadataFilterFromJSONTyped(json: any, ignoreDiscriminator: boolean): MetadataFilter {
+export function MetadataFilter1FromJSONTyped(json: any, ignoreDiscriminator: boolean): MetadataFilter1 {
     if (json == null) {
         return json;
     }
@@ -98,11 +106,11 @@ export function MetadataFilterFromJSONTyped(json: any, ignoreDiscriminator: bool
     };
 }
 
-export function MetadataFilterToJSON(json: any): MetadataFilter {
-    return MetadataFilterToJSONTyped(json, false);
+export function MetadataFilter1ToJSON(json: any): MetadataFilter1 {
+    return MetadataFilter1ToJSONTyped(json, false);
 }
 
-export function MetadataFilterToJSONTyped(value?: MetadataFilter | null, ignoreDiscriminator: boolean = false): any {
+export function MetadataFilter1ToJSONTyped(value?: MetadataFilter1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }

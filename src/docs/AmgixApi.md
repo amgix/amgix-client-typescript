@@ -11,6 +11,7 @@ All URIs are relative to *http://localhost:8234*
 | [**deleteDocument**](AmgixApi.md#deletedocument) | **DELETE** /v1/collections/{collection_name}/documents/{document_id} | Delete Document |
 | [**deleteDocumentSync**](AmgixApi.md#deletedocumentsync) | **DELETE** /v1/collections/{collection_name}/documents/{document_id}/sync | Delete Document Sync |
 | [**emptyCollection**](AmgixApi.md#emptycollection) | **POST** /v1/collections/{collection_name}/empty | Empty Collection |
+| [**fetchDocuments**](AmgixApi.md#fetchdocuments) | **POST** /v1/collections/{collection_name}/documents/fetch | Fetch Documents |
 | [**getCollectionConfig**](AmgixApi.md#getcollectionconfig) | **GET** /v1/collections/{collection_name} | Get Collection Config |
 | [**getCollectionQueueInfo**](AmgixApi.md#getcollectionqueueinfo) | **GET** /v1/collections/{collection_name}/queue/info | Get Collection Queue Info |
 | [**getCollectionStats**](AmgixApi.md#getcollectionstats) | **GET** /v1/collections/{collection_name}/stats | Get Collection Stats |
@@ -511,6 +512,77 @@ No authorization required
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful Response |  -  |
+| **422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## fetchDocuments
+
+> DocumentFetchResponse fetchDocuments(collectionName, documentFetchRequest)
+
+Fetch Documents
+
+Fetch a page of documents from a collection.  Returns documents in stable internal order with cursor-based pagination. Pass the returned &#x60;after&#x60; token in the next request to get the following page. &#x60;after&#x60; is null when there are no more documents.  Args:     collection_name: The name of the collection.     body: Pagination and filter parameters.  Returns:     A &#x60;DocumentFetchResponse&#x60; with a page of documents and a pagination token.  Raises:     HTTPException: 404 if the collection does not exist.     HTTPException: 400 if a filter references an unindexed metadata key.
+
+### Example
+
+```ts
+import {
+  Configuration,
+  AmgixApi,
+} from '';
+import type { FetchDocumentsRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const api = new AmgixApi();
+
+  const body = {
+    // string | Collection name (alphanumeric, underscores, hyphens only)
+    collectionName: collectionName_example,
+    // DocumentFetchRequest
+    documentFetchRequest: ...,
+  } satisfies FetchDocumentsRequest;
+
+  try {
+    const data = await api.fetchDocuments(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **collectionName** | `string` | Collection name (alphanumeric, underscores, hyphens only) | [Defaults to `undefined`] |
+| **documentFetchRequest** | [DocumentFetchRequest](DocumentFetchRequest.md) |  | |
+
+### Return type
+
+[**DocumentFetchResponse**](DocumentFetchResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
 - **Accept**: `application/json`
 
 

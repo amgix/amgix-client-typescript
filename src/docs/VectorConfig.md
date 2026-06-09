@@ -15,7 +15,7 @@ Name | Type
 `query_revision` | string
 `dimensions` | number
 `top_k` | number
-`wmtr_word_weight` | number
+`wmtr_word_ratio` | number
 `index_fields` | Array&lt;string&gt;
 `language_default_code` | string
 `language_detect` | boolean
@@ -39,7 +39,7 @@ const example = {
   "query_revision": null,
   "dimensions": null,
   "top_k": null,
-  "wmtr_word_weight": null,
+  "wmtr_word_ratio": null,
   "index_fields": null,
   "language_default_code": null,
   "language_detect": null,

@@ -1,30 +1,21 @@
 
-# ValidationError
+# Join
 
+Optional join of another collection onto each search result. Forms: \'<collection>\', \'<collection>[<parent>=<child>]\', or with \'(<filter>)\'. Parent refs: $id, $.meta.<key>. Child refs: $$id, $$.meta.<key>. Omitted \'[]\' defaults to [$id=$$id]. Joined documents appear under joined[collection_name].
 
 ## Properties
 
 Name | Type
 ------------ | -------------
-`loc` | [Array&lt;ValidationErrorLocItem&gt;](ValidationErrorLocItem.md)
-`msg` | string
-`type` | string
-`input` | any
-`ctx` | object
 
 ## Example
 
 ```typescript
-import type { ValidationError } from ''
+import type { Join } from ''
 
 // TODO: Update the object below with actual values
 const example = {
-  "loc": null,
-  "msg": null,
-  "type": null,
-  "input": null,
-  "ctx": null,
-} satisfies ValidationError
+} satisfies Join
 
 console.log(example)
 
@@ -33,7 +24,7 @@ const exampleJSON: string = JSON.stringify(example)
 console.log(exampleJSON)
 
 // Parse the JSON string back to an object
-const exampleParsed = JSON.parse(exampleJSON) as ValidationError
+const exampleParsed = JSON.parse(exampleJSON) as Join
 console.log(exampleParsed)
 ```
 

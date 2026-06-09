@@ -1,30 +1,31 @@
 
-# ValidationError
+# DocumentFetchRequest
 
+Request body for paginated document fetching.
 
 ## Properties
 
 Name | Type
 ------------ | -------------
-`loc` | [Array&lt;ValidationErrorLocItem&gt;](ValidationErrorLocItem.md)
-`msg` | string
-`type` | string
-`input` | any
-`ctx` | object
+`page_size` | number
+`after` | string
+`metadata_filter` | [MetadataFilter](MetadataFilter.md)
+`document_tags` | Array&lt;string&gt;
+`document_tags_match_all` | boolean
 
 ## Example
 
 ```typescript
-import type { ValidationError } from ''
+import type { DocumentFetchRequest } from ''
 
 // TODO: Update the object below with actual values
 const example = {
-  "loc": null,
-  "msg": null,
-  "type": null,
-  "input": null,
-  "ctx": null,
-} satisfies ValidationError
+  "page_size": null,
+  "after": null,
+  "metadata_filter": null,
+  "document_tags": null,
+  "document_tags_match_all": null,
+} satisfies DocumentFetchRequest
 
 console.log(example)
 
@@ -33,7 +34,7 @@ const exampleJSON: string = JSON.stringify(example)
 console.log(exampleJSON)
 
 // Parse the JSON string back to an object
-const exampleParsed = JSON.parse(exampleJSON) as ValidationError
+const exampleParsed = JSON.parse(exampleJSON) as DocumentFetchRequest
 console.log(exampleParsed)
 ```
 

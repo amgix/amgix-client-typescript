@@ -14,7 +14,8 @@ Name | Type
 `score_threshold` | number
 `document_tags` | Array&lt;string&gt;
 `document_tags_match_all` | boolean
-`metadata_filter` | [MetadataFilter](MetadataFilter.md)
+`metadata_filter` | [MetadataFilter1](MetadataFilter1.md)
+`join` | [Join](Join.md)
 `raw_scores` | boolean
 `wmtr_trigram_weight` | number
 `fusion_mode` | string
@@ -34,6 +35,7 @@ const example = {
   "document_tags": null,
   "document_tags_match_all": null,
   "metadata_filter": null,
+  "join": null,
   "raw_scores": null,
   "wmtr_trigram_weight": null,
   "fusion_mode": null,

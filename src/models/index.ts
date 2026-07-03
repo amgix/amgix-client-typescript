@@ -13,6 +13,7 @@ export * from './DocumentStatus';
 export * from './DocumentStatusResponse';
 export * from './HTTPValidationError';
 export * from './Join';
+export * from './Join1';
 export * from './MetadataFilter';
 export * from './MetadataFilter1';
 export * from './MetadataIndex';

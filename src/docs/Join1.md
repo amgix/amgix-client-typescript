@@ -1,7 +1,7 @@
 
-# Join
+# Join1
 
-Optional join of another collection onto each fetched document. Forms: \'<collection>\', \'<collection>[<parent>=<child>]\', or with \'(<filter>)\'. Parent refs: $id, $.meta.<key>. Child refs: $$id, $$.meta.<key>. Omitted \'[]\' defaults to [$id=$$id]. Joined documents appear under joined[collection_name].
+Optional join of another collection onto each search result. Forms: \'<collection>\', \'<collection>[<parent>=<child>]\', or with \'(<filter>)\'. Parent refs: $id, $.meta.<key>. Child refs: $$id, $$.meta.<key>. Omitted \'[]\' defaults to [$id=$$id]. Joined documents appear under joined[collection_name].
 
 ## Properties
 
@@ -11,11 +11,11 @@ Name | Type
 ## Example
 
 ```typescript
-import type { Join } from ''
+import type { Join1 } from ''
 
 // TODO: Update the object below with actual values
 const example = {
-} satisfies Join
+} satisfies Join1
 
 console.log(example)
 
@@ -24,7 +24,7 @@ const exampleJSON: string = JSON.stringify(example)
 console.log(exampleJSON)
 
 // Parse the JSON string back to an object
-const exampleParsed = JSON.parse(exampleJSON) as Join
+const exampleParsed = JSON.parse(exampleJSON) as Join1
 console.log(exampleParsed)
 ```
 

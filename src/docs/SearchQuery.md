@@ -15,7 +15,7 @@ Name | Type
 `document_tags` | Array&lt;string&gt;
 `document_tags_match_all` | boolean
 `metadata_filter` | [MetadataFilter1](MetadataFilter1.md)
-`join` | [Join](Join.md)
+`join` | [Join1](Join1.md)
 `raw_scores` | boolean
 `wmtr_trigram_weight` | number
 `fusion_mode` | string

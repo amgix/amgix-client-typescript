@@ -12,6 +12,7 @@ Name | Type
 `metadata_filter` | [MetadataFilter](MetadataFilter.md)
 `document_tags` | Array&lt;string&gt;
 `document_tags_match_all` | boolean
+`join` | [Join](Join.md)
 
 ## Example
 
@@ -25,6 +26,7 @@ const example = {
   "metadata_filter": null,
   "document_tags": null,
   "document_tags_match_all": null,
+  "join": null,
 } satisfies DocumentFetchRequest
 
 console.log(example)

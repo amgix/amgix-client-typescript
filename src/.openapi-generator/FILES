@@ -14,6 +14,7 @@ docs/DocumentStatus.md
 docs/DocumentStatusResponse.md
 docs/HTTPValidationError.md
 docs/Join.md
+docs/Join1.md
 docs/MetadataFilter.md
 docs/MetadataFilter1.md
 docs/MetadataIndex.md
@@ -51,6 +52,7 @@ models/DocumentStatus.ts
 models/DocumentStatusResponse.ts
 models/HTTPValidationError.ts
 models/Join.ts
+models/Join1.ts
 models/MetadataFilter.ts
 models/MetadataFilter1.ts
 models/MetadataIndex.ts

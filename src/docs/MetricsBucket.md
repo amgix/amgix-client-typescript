@@ -13,6 +13,8 @@ Name | Type
 `bucket_seconds` | number
 `value` | number
 `n` | number
+`hostname` | string
+`source` | string
 
 ## Example
 
@@ -27,6 +29,8 @@ const example = {
   "bucket_seconds": null,
   "value": null,
   "n": null,
+  "hostname": null,
+  "source": null,
 } satisfies MetricsBucket
 
 console.log(example)

@@ -13,6 +13,7 @@ Name | Type
 `document_tags` | Array&lt;string&gt;
 `document_tags_match_all` | boolean
 `join` | [Join](Join.md)
+`with_vectors` | boolean
 
 ## Example
 
@@ -27,6 +28,7 @@ const example = {
   "document_tags": null,
   "document_tags_match_all": null,
   "join": null,
+  "with_vectors": null,
 } satisfies DocumentFetchRequest
 
 console.log(example)

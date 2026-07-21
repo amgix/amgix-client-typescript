@@ -1,14 +1,14 @@
 
 # SearchQuery
 
-Configuration for a search query. Defines the query string and vector weights. This is the model that will be sent by end users to the search API endpoint.
+Configuration for a search query. Defines the query string and vector options. This is the model that will be sent by end users to the search API endpoint.
 
 ## Properties
 
 Name | Type
 ------------ | -------------
 `query` | string
-`vector_weights` | [Array&lt;VectorSearchWeight&gt;](VectorSearchWeight.md)
+`vector_options` | [Array&lt;VectorSearchOption&gt;](VectorSearchOption.md)
 `custom_vectors` | [Array&lt;CustomVector&gt;](CustomVector.md)
 `limit` | number
 `score_threshold` | number
@@ -16,8 +16,13 @@ Name | Type
 `document_tags_match_all` | boolean
 `metadata_filter` | [MetadataFilter1](MetadataFilter1.md)
 `join` | [Join1](Join1.md)
+`exclude` | Array&lt;string&gt;
+`group_field` | string
+`group_max` | number
+`group_max_fetches` | number
+`facets` | boolean
+`facet_options` | [FacetOptions](FacetOptions.md)
 `raw_scores` | boolean
-`wmtr_trigram_weight` | number
 `fusion_mode` | string
 
 ## Example
@@ -28,7 +33,7 @@ import type { SearchQuery } from ''
 // TODO: Update the object below with actual values
 const example = {
   "query": null,
-  "vector_weights": null,
+  "vector_options": null,
   "custom_vectors": null,
   "limit": null,
   "score_threshold": null,
@@ -36,8 +41,13 @@ const example = {
   "document_tags_match_all": null,
   "metadata_filter": null,
   "join": null,
+  "exclude": null,
+  "group_field": null,
+  "group_max": null,
+  "group_max_fetches": null,
+  "facets": null,
+  "facet_options": null,
   "raw_scores": null,
-  "wmtr_trigram_weight": null,
   "fusion_mode": null,
 } satisfies SearchQuery
 

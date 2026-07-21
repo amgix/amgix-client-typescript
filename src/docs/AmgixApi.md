@@ -11,6 +11,7 @@ All URIs are relative to *http://localhost:8234*
 | [**deleteDocument**](AmgixApi.md#deletedocument) | **DELETE** /v1/collections/{collection_name}/documents/{document_id} | Delete Document |
 | [**deleteDocumentSync**](AmgixApi.md#deletedocumentsync) | **DELETE** /v1/collections/{collection_name}/documents/{document_id}/sync | Delete Document Sync |
 | [**emptyCollection**](AmgixApi.md#emptycollection) | **POST** /v1/collections/{collection_name}/empty | Empty Collection |
+| [**exportDocuments**](AmgixApi.md#exportdocuments) | **GET** /v1/collections/{collection_name}/documents/export | Export Documents |
 | [**fetchDocuments**](AmgixApi.md#fetchdocuments) | **POST** /v1/collections/{collection_name}/documents/fetch | Fetch Documents |
 | [**getCollectionConfig**](AmgixApi.md#getcollectionconfig) | **GET** /v1/collections/{collection_name} | Get Collection Config |
 | [**getCollectionQueueInfo**](AmgixApi.md#getcollectionqueueinfo) | **GET** /v1/collections/{collection_name}/queue/info | Get Collection Queue Info |
@@ -524,6 +525,78 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
 
+## exportDocuments
+
+> Blob exportDocuments(collectionName, withVectors)
+
+Export Documents
+
+Export all documents in a collection as a downloadable gzip-compressed JSON array.  Streams &#x60;&#x60;[{...},{...},...]&#x60;&#x60; without loading the full collection into memory.
+
+### Example
+
+```ts
+import {
+  Configuration,
+  AmgixApi,
+} from '';
+import type { ExportDocumentsRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const api = new AmgixApi();
+
+  const body = {
+    // string | Collection name (alphanumeric, underscores, hyphens only)
+    collectionName: collectionName_example,
+    // boolean | When true, include stored vector values on each exported document. (optional)
+    withVectors: true,
+  } satisfies ExportDocumentsRequest;
+
+  try {
+    const data = await api.exportDocuments(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **collectionName** | `string` | Collection name (alphanumeric, underscores, hyphens only) | [Defaults to `undefined`] |
+| **withVectors** | `boolean` | When true, include stored vector values on each exported document. | [Optional] [Defaults to `false`] |
+
+### Return type
+
+**Blob**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/gzip`, `application/json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Gzip-compressed UTF-8 JSON file. After gunzip, the payload is a JSON array of Document objects (Document[]). Suggested filename is in Content-Disposition. |  * Content-Disposition - attachment; filename&#x3D;\&quot;{collection_name}-{timestamp}.json.gz\&quot; <br>  |
+| **404** | Collection not found |  -  |
+| **422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
 ## fetchDocuments
 
 > DocumentFetchResponse fetchDocuments(collectionName, documentFetchRequest)
@@ -801,11 +874,11 @@ No authorization required
 
 ## getDocument
 
-> Document getDocument(collectionName, documentId)
+> Document getDocument(collectionName, documentId, withVectors)
 
 Get Document
 
-Retrieve a single document.  Retrieves a specific document by its ID from the specified collection.  Args:     collection_name: The name of the collection.     document_id: The unique identifier of the document to retrieve.  Returns:     The retrieved &#x60;Document&#x60; object.  Raises:     HTTPException: 404 if the document is not found in the collection.
+Retrieve a single document.  Retrieves a specific document by its ID from the specified collection.  Args:     collection_name: The name of the collection.     document_id: The unique identifier of the document to retrieve.     with_vectors: When true, include stored vector values on the document.  Returns:     The retrieved &#x60;Document&#x60; object.  Raises:     HTTPException: 404 if the document is not found in the collection.
 
 ### Example
 
@@ -825,6 +898,8 @@ async function example() {
     collectionName: collectionName_example,
     // string
     documentId: documentId_example,
+    // boolean | When true, include stored vector values on the document. (optional)
+    withVectors: true,
   } satisfies GetDocumentRequest;
 
   try {
@@ -846,6 +921,7 @@ example().catch(console.error);
 |------------- | ------------- | ------------- | -------------|
 | **collectionName** | `string` | Collection name (alphanumeric, underscores, hyphens only) | [Defaults to `undefined`] |
 | **documentId** | `string` |  | [Defaults to `undefined`] |
+| **withVectors** | `boolean` | When true, include stored vector values on the document. | [Optional] [Defaults to `false`] |
 
 ### Return type
 
@@ -1388,11 +1464,11 @@ No authorization required
 
 ## search
 
-> Array&lt;SearchResult&gt; search(collectionName, searchQuery)
+> SearchResponse search(collectionName, searchQuery)
 
 Search
 
-Perform a search query on a collection.  Executes a search query against the specified collection.  Args:     collection_name: The name of the collection to search.     query: The &#x60;SearchQuery&#x60; object containing the search text, filters, and other parameters.  Returns:     A list of &#x60;SearchResult&#x60; objects, where each object represents a search result.
+Perform a search query on a collection.  Executes a search query against the specified collection.  Args:     collection_name: The name of the collection to search.     query: The &#x60;SearchQuery&#x60; object containing the search text, filters, and other parameters.  Returns:     A &#x60;SearchResponse&#x60; with search hits and server-side query timing.
 
 ### Example
 
@@ -1436,7 +1512,7 @@ example().catch(console.error);
 
 ### Return type
 
-[**Array&lt;SearchResult&gt;**](SearchResult.md)
+[**SearchResponse**](SearchResponse.md)
 
 ### Authorization
 

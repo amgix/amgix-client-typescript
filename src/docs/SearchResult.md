@@ -16,6 +16,8 @@ Name | Type
 `metadata` | { [key: string]: any; }
 `custom_vectors` | [Array&lt;CustomDocumentVector&gt;](CustomDocumentVector.md)
 `joined` | { [key: string]: Array&lt;Document&gt;; }
+`vectors` | [Array&lt;VectorData&gt;](VectorData.md)
+`token_lengths` | { [key: string]: number; }
 `score` | number
 `vector_scores` | [Array&lt;VectorScore&gt;](VectorScore.md)
 
@@ -35,6 +37,8 @@ const example = {
   "metadata": null,
   "custom_vectors": null,
   "joined": null,
+  "vectors": null,
+  "token_lengths": null,
   "score": null,
   "vector_scores": null,
 } satisfies SearchResult

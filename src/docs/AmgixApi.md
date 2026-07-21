@@ -53,7 +53,13 @@ import type { CollectionExistsRequest } from '';
 
 async function example() {
   console.log("🚀 Testing  SDK...");
-  const api = new AmgixApi();
+  const config = new Configuration({ 
+    // To configure API key authorization: ApiKeyHeader
+    apiKey: "YOUR API KEY",
+    // Configure HTTP bearer authorization: BearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AmgixApi(config);
 
   const body = {
     // string | Collection name (alphanumeric, underscores, hyphens only)
@@ -85,7 +91,7 @@ example().catch(console.error);
 
 ### Authorization
 
-No authorization required
+[ApiKeyHeader](../README.md#ApiKeyHeader), [BearerAuth](../README.md#BearerAuth)
 
 ### HTTP request headers
 
@@ -121,7 +127,13 @@ import type { CreateCollectionRequest } from '';
 
 async function example() {
   console.log("🚀 Testing  SDK...");
-  const api = new AmgixApi();
+  const config = new Configuration({ 
+    // To configure API key authorization: ApiKeyHeader
+    apiKey: "YOUR API KEY",
+    // Configure HTTP bearer authorization: BearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AmgixApi(config);
 
   const body = {
     // string | Collection name (alphanumeric, underscores, hyphens only)
@@ -156,7 +168,7 @@ example().catch(console.error);
 
 ### Authorization
 
-No authorization required
+[ApiKeyHeader](../README.md#ApiKeyHeader), [BearerAuth](../README.md#BearerAuth)
 
 ### HTTP request headers
 
@@ -192,7 +204,13 @@ import type { DeleteCollectionRequest } from '';
 
 async function example() {
   console.log("🚀 Testing  SDK...");
-  const api = new AmgixApi();
+  const config = new Configuration({ 
+    // To configure API key authorization: ApiKeyHeader
+    apiKey: "YOUR API KEY",
+    // Configure HTTP bearer authorization: BearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AmgixApi(config);
 
   const body = {
     // string | Collection name (alphanumeric, underscores, hyphens only)
@@ -224,7 +242,7 @@ example().catch(console.error);
 
 ### Authorization
 
-No authorization required
+[ApiKeyHeader](../README.md#ApiKeyHeader), [BearerAuth](../README.md#BearerAuth)
 
 ### HTTP request headers
 
@@ -260,7 +278,13 @@ import type { DeleteCollectionQueueRequest } from '';
 
 async function example() {
   console.log("🚀 Testing  SDK...");
-  const api = new AmgixApi();
+  const config = new Configuration({ 
+    // To configure API key authorization: ApiKeyHeader
+    apiKey: "YOUR API KEY",
+    // Configure HTTP bearer authorization: BearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AmgixApi(config);
 
   const body = {
     // string | Collection name (alphanumeric, underscores, hyphens only)
@@ -292,7 +316,7 @@ example().catch(console.error);
 
 ### Authorization
 
-No authorization required
+[ApiKeyHeader](../README.md#ApiKeyHeader), [BearerAuth](../README.md#BearerAuth)
 
 ### HTTP request headers
 
@@ -328,7 +352,13 @@ import type { DeleteDocumentRequest } from '';
 
 async function example() {
   console.log("🚀 Testing  SDK...");
-  const api = new AmgixApi();
+  const config = new Configuration({ 
+    // To configure API key authorization: ApiKeyHeader
+    apiKey: "YOUR API KEY",
+    // Configure HTTP bearer authorization: BearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AmgixApi(config);
 
   const body = {
     // string | Collection name (alphanumeric, underscores, hyphens only)
@@ -366,7 +396,7 @@ example().catch(console.error);
 
 ### Authorization
 
-No authorization required
+[ApiKeyHeader](../README.md#ApiKeyHeader), [BearerAuth](../README.md#BearerAuth)
 
 ### HTTP request headers
 
@@ -402,7 +432,13 @@ import type { DeleteDocumentSyncRequest } from '';
 
 async function example() {
   console.log("🚀 Testing  SDK...");
-  const api = new AmgixApi();
+  const config = new Configuration({ 
+    // To configure API key authorization: ApiKeyHeader
+    apiKey: "YOUR API KEY",
+    // Configure HTTP bearer authorization: BearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AmgixApi(config);
 
   const body = {
     // string | Collection name (alphanumeric, underscores, hyphens only)
@@ -440,7 +476,7 @@ example().catch(console.error);
 
 ### Authorization
 
-No authorization required
+[ApiKeyHeader](../README.md#ApiKeyHeader), [BearerAuth](../README.md#BearerAuth)
 
 ### HTTP request headers
 
@@ -476,7 +512,13 @@ import type { EmptyCollectionRequest } from '';
 
 async function example() {
   console.log("🚀 Testing  SDK...");
-  const api = new AmgixApi();
+  const config = new Configuration({ 
+    // To configure API key authorization: ApiKeyHeader
+    apiKey: "YOUR API KEY",
+    // Configure HTTP bearer authorization: BearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AmgixApi(config);
 
   const body = {
     // string | Collection name (alphanumeric, underscores, hyphens only)
@@ -508,7 +550,7 @@ example().catch(console.error);
 
 ### Authorization
 
-No authorization required
+[ApiKeyHeader](../README.md#ApiKeyHeader), [BearerAuth](../README.md#BearerAuth)
 
 ### HTTP request headers
 
@@ -544,7 +586,13 @@ import type { ExportDocumentsRequest } from '';
 
 async function example() {
   console.log("🚀 Testing  SDK...");
-  const api = new AmgixApi();
+  const config = new Configuration({ 
+    // To configure API key authorization: ApiKeyHeader
+    apiKey: "YOUR API KEY",
+    // Configure HTTP bearer authorization: BearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AmgixApi(config);
 
   const body = {
     // string | Collection name (alphanumeric, underscores, hyphens only)
@@ -579,7 +627,7 @@ example().catch(console.error);
 
 ### Authorization
 
-No authorization required
+[ApiKeyHeader](../README.md#ApiKeyHeader), [BearerAuth](../README.md#BearerAuth)
 
 ### HTTP request headers
 
@@ -616,7 +664,13 @@ import type { FetchDocumentsRequest } from '';
 
 async function example() {
   console.log("🚀 Testing  SDK...");
-  const api = new AmgixApi();
+  const config = new Configuration({ 
+    // To configure API key authorization: ApiKeyHeader
+    apiKey: "YOUR API KEY",
+    // Configure HTTP bearer authorization: BearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AmgixApi(config);
 
   const body = {
     // string | Collection name (alphanumeric, underscores, hyphens only)
@@ -651,7 +705,7 @@ example().catch(console.error);
 
 ### Authorization
 
-No authorization required
+[ApiKeyHeader](../README.md#ApiKeyHeader), [BearerAuth](../README.md#BearerAuth)
 
 ### HTTP request headers
 
@@ -687,7 +741,13 @@ import type { GetCollectionConfigRequest } from '';
 
 async function example() {
   console.log("🚀 Testing  SDK...");
-  const api = new AmgixApi();
+  const config = new Configuration({ 
+    // To configure API key authorization: ApiKeyHeader
+    apiKey: "YOUR API KEY",
+    // Configure HTTP bearer authorization: BearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AmgixApi(config);
 
   const body = {
     // string | Collection name (alphanumeric, underscores, hyphens only)
@@ -719,7 +779,7 @@ example().catch(console.error);
 
 ### Authorization
 
-No authorization required
+[ApiKeyHeader](../README.md#ApiKeyHeader), [BearerAuth](../README.md#BearerAuth)
 
 ### HTTP request headers
 
@@ -755,7 +815,13 @@ import type { GetCollectionQueueInfoRequest } from '';
 
 async function example() {
   console.log("🚀 Testing  SDK...");
-  const api = new AmgixApi();
+  const config = new Configuration({ 
+    // To configure API key authorization: ApiKeyHeader
+    apiKey: "YOUR API KEY",
+    // Configure HTTP bearer authorization: BearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AmgixApi(config);
 
   const body = {
     // string | Collection name (alphanumeric, underscores, hyphens only)
@@ -787,7 +853,7 @@ example().catch(console.error);
 
 ### Authorization
 
-No authorization required
+[ApiKeyHeader](../README.md#ApiKeyHeader), [BearerAuth](../README.md#BearerAuth)
 
 ### HTTP request headers
 
@@ -823,7 +889,13 @@ import type { GetCollectionStatsRequest } from '';
 
 async function example() {
   console.log("🚀 Testing  SDK...");
-  const api = new AmgixApi();
+  const config = new Configuration({ 
+    // To configure API key authorization: ApiKeyHeader
+    apiKey: "YOUR API KEY",
+    // Configure HTTP bearer authorization: BearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AmgixApi(config);
 
   const body = {
     // string | Collection name (alphanumeric, underscores, hyphens only)
@@ -855,7 +927,7 @@ example().catch(console.error);
 
 ### Authorization
 
-No authorization required
+[ApiKeyHeader](../README.md#ApiKeyHeader), [BearerAuth](../README.md#BearerAuth)
 
 ### HTTP request headers
 
@@ -891,7 +963,13 @@ import type { GetDocumentRequest } from '';
 
 async function example() {
   console.log("🚀 Testing  SDK...");
-  const api = new AmgixApi();
+  const config = new Configuration({ 
+    // To configure API key authorization: ApiKeyHeader
+    apiKey: "YOUR API KEY",
+    // Configure HTTP bearer authorization: BearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AmgixApi(config);
 
   const body = {
     // string | Collection name (alphanumeric, underscores, hyphens only)
@@ -929,7 +1007,7 @@ example().catch(console.error);
 
 ### Authorization
 
-No authorization required
+[ApiKeyHeader](../README.md#ApiKeyHeader), [BearerAuth](../README.md#BearerAuth)
 
 ### HTTP request headers
 
@@ -965,7 +1043,13 @@ import type { GetDocumentStatusRequest } from '';
 
 async function example() {
   console.log("🚀 Testing  SDK...");
-  const api = new AmgixApi();
+  const config = new Configuration({ 
+    // To configure API key authorization: ApiKeyHeader
+    apiKey: "YOUR API KEY",
+    // Configure HTTP bearer authorization: BearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AmgixApi(config);
 
   const body = {
     // string | Collection name (alphanumeric, underscores, hyphens only)
@@ -1000,7 +1084,7 @@ example().catch(console.error);
 
 ### Authorization
 
-No authorization required
+[ApiKeyHeader](../README.md#ApiKeyHeader), [BearerAuth](../README.md#BearerAuth)
 
 ### HTTP request headers
 
@@ -1156,7 +1240,13 @@ import type { ListCollectionsRequest } from '';
 
 async function example() {
   console.log("🚀 Testing  SDK...");
-  const api = new AmgixApi();
+  const config = new Configuration({ 
+    // To configure API key authorization: ApiKeyHeader
+    apiKey: "YOUR API KEY",
+    // Configure HTTP bearer authorization: BearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AmgixApi(config);
 
   try {
     const data = await api.listCollections();
@@ -1180,7 +1270,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-No authorization required
+[ApiKeyHeader](../README.md#ApiKeyHeader), [BearerAuth](../README.md#BearerAuth)
 
 ### HTTP request headers
 
@@ -1215,7 +1305,13 @@ import type { MetricsCurrentRequest } from '';
 
 async function example() {
   console.log("🚀 Testing  SDK...");
-  const api = new AmgixApi();
+  const config = new Configuration({ 
+    // To configure API key authorization: ApiKeyHeader
+    apiKey: "YOUR API KEY",
+    // Configure HTTP bearer authorization: BearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AmgixApi(config);
 
   const body = {
     // number | Aggregation window in seconds - 30 or 60. (optional)
@@ -1250,7 +1346,7 @@ example().catch(console.error);
 
 ### Authorization
 
-No authorization required
+[ApiKeyHeader](../README.md#ApiKeyHeader), [BearerAuth](../README.md#BearerAuth)
 
 ### HTTP request headers
 
@@ -1286,7 +1382,13 @@ import type { MetricsDefinitionsRequest } from '';
 
 async function example() {
   console.log("🚀 Testing  SDK...");
-  const api = new AmgixApi();
+  const config = new Configuration({ 
+    // To configure API key authorization: ApiKeyHeader
+    apiKey: "YOUR API KEY",
+    // Configure HTTP bearer authorization: BearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AmgixApi(config);
 
   try {
     const data = await api.metricsDefinitions();
@@ -1310,7 +1412,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-No authorization required
+[ApiKeyHeader](../README.md#ApiKeyHeader), [BearerAuth](../README.md#BearerAuth)
 
 ### HTTP request headers
 
@@ -1345,7 +1447,13 @@ import type { MetricsPrometheusRequest } from '';
 
 async function example() {
   console.log("🚀 Testing  SDK...");
-  const api = new AmgixApi();
+  const config = new Configuration({ 
+    // To configure API key authorization: ApiKeyHeader
+    apiKey: "YOUR API KEY",
+    // Configure HTTP bearer authorization: BearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AmgixApi(config);
 
   try {
     const data = await api.metricsPrometheus();
@@ -1369,7 +1477,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-No authorization required
+[ApiKeyHeader](../README.md#ApiKeyHeader), [BearerAuth](../README.md#BearerAuth)
 
 ### HTTP request headers
 
@@ -1404,7 +1512,13 @@ import type { MetricsTrendsRequest } from '';
 
 async function example() {
   console.log("🚀 Testing  SDK...");
-  const api = new AmgixApi();
+  const config = new Configuration({ 
+    // To configure API key authorization: ApiKeyHeader
+    apiKey: "YOUR API KEY",
+    // Configure HTTP bearer authorization: BearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AmgixApi(config);
 
   const body = {
     // Date
@@ -1445,7 +1559,7 @@ example().catch(console.error);
 
 ### Authorization
 
-No authorization required
+[ApiKeyHeader](../README.md#ApiKeyHeader), [BearerAuth](../README.md#BearerAuth)
 
 ### HTTP request headers
 
@@ -1481,7 +1595,13 @@ import type { SearchRequest } from '';
 
 async function example() {
   console.log("🚀 Testing  SDK...");
-  const api = new AmgixApi();
+  const config = new Configuration({ 
+    // To configure API key authorization: ApiKeyHeader
+    apiKey: "YOUR API KEY",
+    // Configure HTTP bearer authorization: BearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AmgixApi(config);
 
   const body = {
     // string | Collection name (alphanumeric, underscores, hyphens only)
@@ -1516,7 +1636,7 @@ example().catch(console.error);
 
 ### Authorization
 
-No authorization required
+[ApiKeyHeader](../README.md#ApiKeyHeader), [BearerAuth](../README.md#BearerAuth)
 
 ### HTTP request headers
 
@@ -1552,7 +1672,13 @@ import type { SystemInfoRequest } from '';
 
 async function example() {
   console.log("🚀 Testing  SDK...");
-  const api = new AmgixApi();
+  const config = new Configuration({ 
+    // To configure API key authorization: ApiKeyHeader
+    apiKey: "YOUR API KEY",
+    // Configure HTTP bearer authorization: BearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AmgixApi(config);
 
   try {
     const data = await api.systemInfo();
@@ -1576,7 +1702,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-No authorization required
+[ApiKeyHeader](../README.md#ApiKeyHeader), [BearerAuth](../README.md#BearerAuth)
 
 ### HTTP request headers
 
@@ -1611,7 +1737,13 @@ import type { UpsertDocumentRequest } from '';
 
 async function example() {
   console.log("🚀 Testing  SDK...");
-  const api = new AmgixApi();
+  const config = new Configuration({ 
+    // To configure API key authorization: ApiKeyHeader
+    apiKey: "YOUR API KEY",
+    // Configure HTTP bearer authorization: BearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AmgixApi(config);
 
   const body = {
     // string | Collection name (alphanumeric, underscores, hyphens only)
@@ -1646,7 +1778,7 @@ example().catch(console.error);
 
 ### Authorization
 
-No authorization required
+[ApiKeyHeader](../README.md#ApiKeyHeader), [BearerAuth](../README.md#BearerAuth)
 
 ### HTTP request headers
 
@@ -1682,7 +1814,13 @@ import type { UpsertDocumentSyncRequest } from '';
 
 async function example() {
   console.log("🚀 Testing  SDK...");
-  const api = new AmgixApi();
+  const config = new Configuration({ 
+    // To configure API key authorization: ApiKeyHeader
+    apiKey: "YOUR API KEY",
+    // Configure HTTP bearer authorization: BearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AmgixApi(config);
 
   const body = {
     // string | Collection name (alphanumeric, underscores, hyphens only)
@@ -1717,7 +1855,7 @@ example().catch(console.error);
 
 ### Authorization
 
-No authorization required
+[ApiKeyHeader](../README.md#ApiKeyHeader), [BearerAuth](../README.md#BearerAuth)
 
 ### HTTP request headers
 
@@ -1753,7 +1891,13 @@ import type { UpsertDocumentsBulkRequest } from '';
 
 async function example() {
   console.log("🚀 Testing  SDK...");
-  const api = new AmgixApi();
+  const config = new Configuration({ 
+    // To configure API key authorization: ApiKeyHeader
+    apiKey: "YOUR API KEY",
+    // Configure HTTP bearer authorization: BearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AmgixApi(config);
 
   const body = {
     // string | Collection name (alphanumeric, underscores, hyphens only)
@@ -1788,7 +1932,7 @@ example().catch(console.error);
 
 ### Authorization
 
-No authorization required
+[ApiKeyHeader](../README.md#ApiKeyHeader), [BearerAuth](../README.md#BearerAuth)
 
 ### HTTP request headers
 
